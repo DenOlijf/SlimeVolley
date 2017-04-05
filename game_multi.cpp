@@ -48,28 +48,14 @@ void GameMulti::Run()
 		// The following six lines clear the screen, redraw the background,
 		// draw sprites and render both to screen. This should be handled by
 		// the render system, but is here to make sure Allegro works properly.
-		/*Graphics::Instance().ClearScreen();
-		Graphics::Instance().DrawBackground();
-		Graphics::Instance().DrawBitmap(Graphics::SPRITE_PLAYER1, 150, 299 - 0, 39, 39);
+		//Graphics::Instance().ClearScreen();
+		//Graphics::Instance().DrawBackground();
+		/*Graphics::Instance().DrawBitmap(Graphics::SPRITE_PLAYER1, 150, 299 - 0, 39, 39);
 		Graphics::Instance().DrawBitmap(Graphics::SPRITE_PLAYER2, 600, 299 - 0, 39, 39);
 		Graphics::Instance().DrawBitmap(Graphics::SPRITE_BALL, 150, 299 - 133.5, 11, 11);
 		Graphics::Instance().ExecuteDraws();*/
 
-
-		std::set<Component::Tag> tags = (Tags(Component::SPRITE)).List();
-		std::set<Entity*> verz = engine.GetEntityStream()->WithTags(tags);
-		std::set<Entity*>::iterator it;
-
-		for (it = verz.begin(); it != verz.end(); it++) {
-			Entity* temp = *it;
-			ComponentSprite* tempo = (ComponentSprite*)temp->GetComponent(Component::SPRITE);
-			Graphics::Instance().DrawBitmap(tempo->sprite, tempo->x, tempo->y);
-			
-		}
-
-		Graphics::Instance().ExecuteDraws();
-
-		//engine.Update();
+		engine.Update();
 		
 		// Update quit value
 		quit = AllegroLib::Instance().IsWindowClosed();
@@ -81,7 +67,9 @@ void GameMulti::Run()
 
 void GameMulti::AddSystems()
 {
-	engine.AddSystem((System*) new SystemRender());
+	System* temp = (System*) new SystemRender();
+	temp->SetEngine(&engine);
+	engine.AddSystem(temp);
 
 }
 
