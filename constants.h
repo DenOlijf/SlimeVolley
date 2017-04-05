@@ -11,8 +11,16 @@
 #define SLIME_2_INIT_X 600
 #define BALL_INIT_Y 133.5
 
+#define SLIME_X_OFFSET 39
+#define SLIME_Y_OFFSET -39
+#define BALL_X_OFFSET 11
+#define BALL_Y_OFFSET -11
+
 #define SLIME_V_X 6
 #define SLIME_V_Y 11.625
+
+#define SLIME_A_Y -0.750
+#define BALL_A_Y -0.375
 
 #define PUPILS_OFFSET_X_1 20
 #define PUPILS_OFFSET_X_2 -20

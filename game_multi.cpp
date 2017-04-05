@@ -6,6 +6,7 @@
 #include "component_player.h"
 #include "component_point.h"
 #include "component_sprite.h"
+#include "constants.h"
 #include "entity.h"
 #include "entity_stream.h"
 #include "tags.h"
@@ -82,21 +83,21 @@ void GameMulti::RemoveSystems()
 void GameMulti::MakeEntities()
 {
 	Entity* ball = new Entity();
-	ball->Add(new ComponentSprite(Graphics::SPRITE_BALL, 150, 11, 738, -11, 150, 11, 288, 11));
-	ball->Add(new ComponentMotion(0, 0, 0, -1));
+	ball->Add(new ComponentSprite(Graphics::SPRITE_BALL, 150, BALL_X_OFFSET, 738, BALL_X_OFFSET, BALL_INIT_Y, BALL_Y_OFFSET, 288, BALL_Y_OFFSET));
+	ball->Add(new ComponentMotion(0, 0, 0, BALL_A_Y));
 	ball->Add(new ComponentBall());
 	engine.AddEntity(ball);
 
 	Entity* player1 = new Entity();
-	player1->Add(new ComponentSprite(Graphics::SPRITE_PLAYER1, 150, 39, 710, -39, 39, 39, 260, 39));
-	player1->Add(new ComponentMotion(0, 0, 0, -1));
-	player1->Add(new ComponentPlayer(1, 40));
+	player1->Add(new ComponentSprite(Graphics::SPRITE_PLAYER1, SLIME_1_INIT_X, SLIME_X_OFFSET, 710, SLIME_X_OFFSET, SLIME_X_OFFSET, SLIME_X_OFFSET, 260, SLIME_Y_OFFSET));
+	player1->Add(new ComponentMotion(0, 0, 0, SLIME_A_Y));
+	player1->Add(new ComponentPlayer(1, RADIUS_SLIME));
 	engine.AddEntity(player1);
 
 	Entity* player2 = new Entity();
-	player2->Add(new ComponentSprite(Graphics::SPRITE_PLAYER2, 525, 39, 710, -39, 39, 39, 260, 39));
-	player2->Add(new ComponentMotion(0, 0, 0, -1));
-	player2->Add(new ComponentPlayer(1, 40));
+	player2->Add(new ComponentSprite(Graphics::SPRITE_PLAYER2, SLIME_2_INIT_X, SLIME_X_OFFSET, 710, SLIME_X_OFFSET, SLIME_X_OFFSET, SLIME_X_OFFSET, 260, SLIME_Y_OFFSET));
+	player2->Add(new ComponentMotion(0, 0, 0, SLIME_A_Y));
+	player2->Add(new ComponentPlayer(2, RADIUS_SLIME));
 	engine.AddEntity(player2);
 
 	Entity* point1 = new Entity();
