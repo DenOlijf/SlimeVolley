@@ -8,6 +8,7 @@
 #include "component_sprite.h"
 #include "entity.h"
 #include "entity_stream.h"
+#include "tags.h"
 
 GameMulti::GameMulti(Context* _context) :
 	context(_context),
@@ -54,7 +55,22 @@ void GameMulti::Run()
 		Graphics::Instance().DrawBitmap(Graphics::SPRITE_BALL, 150, 299 - 133.5, 11, 11);
 		Graphics::Instance().ExecuteDraws();*/
 
-		engine.Update();
+
+		std::set<Component::Tag> tags = (Tags(Component::SPRITE)).List();
+		std::set<Entity*> verz = engine.GetEntityStream()->WithTags(tags);
+		std::set<Entity*>::iterator it;
+
+		for (it = verz.begin(); it != verz.end(); it++) {
+			Entity* temp = *it;
+			ComponentSprite* tempo = (ComponentSprite*)temp->GetComponent(Component::SPRITE);
+			Graphics::Instance().DrawBitmap(tempo->sprite, tempo->x, tempo->y);
+			
+		}
+
+		Graphics::Instance().ExecuteDraws();
+
+		//engine.Update();
+		
 		// Update quit value
 		quit = AllegroLib::Instance().IsWindowClosed();
 	}
@@ -65,8 +81,7 @@ void GameMulti::Run()
 
 void GameMulti::AddSystems()
 {
-	sr = *(new SystemRender());
-	engine.AddSystem((System*)&sr);
+	engine.AddSystem((System*) new SystemRender());
 
 }
 
