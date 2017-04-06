@@ -24,26 +24,61 @@ void SystemCollision::Update()
 
 	if (!engine->GetContext()->IsPaused() && !engine->GetContext()->IsFrozen())
 	{
-		// TODO: Handle all possible collisions
-
+		HandleBallWallCollision();
+		HandleBallNetCollision();
+		HandlePlayerWallCollision(cspr_player_1, cmot_player_1);
+		HandlePlayerWallCollision(cspr_player_2, cmot_player_2);
+		HandleBallPlayerCollision(cspr_player_1, cmot_player_1);
+		HandleBallPlayerCollision(cspr_player_2, cmot_player_2);
 	}
 }
 
 void SystemCollision::HandleBallWallCollision()
 {
-	// TODO: Handle a possible collision between the ball and a wall
-
+	
+	if (cspr_ball->x < cspr_ball->x_min) {
+		cspr_ball->x = cspr_ball->x_min;
+		cmot_ball->v_x *= -1;
+	}
+	else {
+		if (cspr_ball->x > cspr_ball->x_max) {
+			cspr_ball->x = cspr_ball->x_max;
+			cmot_ball->v_x *= -1;
+		}
+	}
+	
+	if (cspr_ball->y > cspr_ball->y_max) {
+		cspr_ball->y = cspr_ball->y_max;
+	}
 }
 
 void SystemCollision::HandleBallNetCollision()
 {
-	// TODO: Handle a possible collision between the ball and the net
+	
+	if (cspr_ball->x >= 375 - BALL_X_OFFSET && cspr_ball->x <= 375 && cspr_ball->y >= 253 - BALL_X_OFFSET) {
+		cmot_ball->v_x *= -1;
+	}
+	if (cspr_ball->x >= 375 - BALL_X_OFFSET && cspr_ball->x <= 375 && cspr_ball->y >= 253 - 2*BALL_X_OFFSET && cspr_ball->y < 253-BALL_X_OFFSET) {
+		cmot_ball->v_x *= -1;
+		cmot_ball->v_y *= -1;
+	}
 
 }
 
 void SystemCollision::HandlePlayerWallCollision(ComponentSprite* csprPlayer, ComponentMotion* cmotPlayer)
 {
-	// TODO: Handle a possible collision between a player and the walls/floor
+	if (csprPlayer->x < csprPlayer->x_min) {
+		csprPlayer->x = csprPlayer->x_min;
+		cmotPlayer->v_x = 0;
+	}
+	if (csprPlayer->x > csprPlayer->x_max) {
+		csprPlayer->x = csprPlayer->x_max;
+		cmotPlayer->v_x = 0;
+	}
+	if (csprPlayer->y > csprPlayer->y_max) {
+		csprPlayer->y = csprPlayer->y_max;
+		cmotPlayer->v_y = 0;
+	}
 
 }
 
@@ -73,7 +108,28 @@ void SystemCollision::HandleBallPlayerCollision(ComponentSprite* csprPlayer, Com
 
 bool SystemCollision::Initialize()
 {
-	// TODO: Initialize all component pointers (optional)
+	std::set<Entity*> ents = engine->GetEntityStream()->WithTag(Component::MOTION);
+	std::set<Entity*>::iterator it;
+
+	for (it = ents.begin(); it != ents.end(); it++) {
+		Graphics::Sprite temp = ((ComponentSprite*)(*it)->GetComponent(Component::SPRITE))->sprite;
+		if (temp == Graphics::SPRITE_PLAYER1) {
+			cspr_player_1 = (ComponentSprite*)(*it)->GetComponent(Component::SPRITE);
+			cmot_player_1 = (ComponentMotion*)(*it)->GetComponent(Component::MOTION);
+		}
+		else {
+			if (temp == Graphics::SPRITE_PLAYER2) {
+				cspr_player_2 = (ComponentSprite*)(*it)->GetComponent(Component::SPRITE);
+				cmot_player_2 = (ComponentMotion*)(*it)->GetComponent(Component::MOTION);
+			}
+			else {
+				if (temp == Graphics::SPRITE_BALL) {
+					cspr_ball = (ComponentSprite*)(*it)->GetComponent(Component::SPRITE);
+					cmot_ball = (ComponentMotion*)(*it)->GetComponent(Component::MOTION);
+				}
+			}
+		}
+	}
 
 	return true;
 }

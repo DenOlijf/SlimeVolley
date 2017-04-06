@@ -61,11 +61,14 @@ void GameMulti::AddSystems()
 {
 	System* systemmotion = (System*) new SystemMotion();
 	engine.AddSystem(systemmotion);
+
+	System* systemcollision = (System*) new SystemCollision();
+	systemcollision->SetEngine(&engine);
+	engine.AddSystem(systemcollision);
+	
 	System* systemrender = (System*) new SystemRender();
 	systemrender->SetEngine(&engine);
 	engine.AddSystem(systemrender);
-	
-
 }
 
 void GameMulti::RemoveSystems()
@@ -77,19 +80,19 @@ void GameMulti::RemoveSystems()
 void GameMulti::MakeEntities()
 {
 	Entity* ball = new Entity();
-	ball->Add(new ComponentSprite(Graphics::SPRITE_BALL, 150-BALL_X_OFFSET, BALL_X_OFFSET, 738, BALL_X_OFFSET, BALL_INIT_Y, BALL_Y_OFFSET, 277, BALL_Y_OFFSET));
+	ball->Add(new ComponentSprite(Graphics::SPRITE_BALL, 150-BALL_X_OFFSET, 0, 749-BALL_X_OFFSET, BALL_X_OFFSET, BALL_INIT_Y, 0, 299+2*BALL_Y_OFFSET, BALL_Y_OFFSET));
 	ball->Add(new ComponentMotion(0, 0, 0, BALL_A_Y));
 	ball->Add(new ComponentBall());
 	engine.AddEntity(ball);
 
 	Entity* player1 = new Entity();
-	player1->Add(new ComponentSprite(Graphics::SPRITE_PLAYER1, SLIME_1_INIT_X-39, SLIME_X_OFFSET, 710, SLIME_X_OFFSET, 299+SLIME_Y_OFFSET, SLIME_X_OFFSET, 299+SLIME_Y_OFFSET, SLIME_Y_OFFSET));
+	player1->Add(new ComponentSprite(Graphics::SPRITE_PLAYER1, SLIME_1_INIT_X-39, 0, 375-SLIME_X_OFFSET, SLIME_X_OFFSET, 299+SLIME_Y_OFFSET, 0, 299+SLIME_Y_OFFSET, SLIME_Y_OFFSET));
 	player1->Add(new ComponentMotion(0, 0, 0, SLIME_A_Y));
 	player1->Add(new ComponentPlayer(1, RADIUS_SLIME));
 	engine.AddEntity(player1);
 
 	Entity* player2 = new Entity();
-	player2->Add(new ComponentSprite(Graphics::SPRITE_PLAYER2, SLIME_2_INIT_X-39, SLIME_X_OFFSET, 710, SLIME_X_OFFSET, 299+SLIME_Y_OFFSET, SLIME_X_OFFSET, 299+SLIME_Y_OFFSET, SLIME_Y_OFFSET));
+	player2->Add(new ComponentSprite(Graphics::SPRITE_PLAYER2, SLIME_2_INIT_X-39, 375, 749-SLIME_X_OFFSET, SLIME_X_OFFSET, 299+SLIME_Y_OFFSET, 0, 299+SLIME_Y_OFFSET, SLIME_Y_OFFSET));
 	player2->Add(new ComponentMotion(0, 0, 0, SLIME_A_Y));
 	player2->Add(new ComponentPlayer(2, RADIUS_SLIME));
 	engine.AddEntity(player2);
