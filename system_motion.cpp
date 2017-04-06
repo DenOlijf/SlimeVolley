@@ -21,7 +21,18 @@ void SystemMotion::Update()
 		// TODO: Update velocity and position of all entities with motion
 		// component
 		
-		//engine->GetEntityStream()->WithTag()
+		std::set<Entity*> entities = engine->GetEntityStream()->WithTag(Component::MOTION);
+		std::set<Entity*>::iterator it;
+
+		for (it = entities.begin(); it != entities.end(); it++) {
+			Entity* temp = *it;
+			ComponentMotion* motion = (ComponentMotion*)temp->GetComponent(Component::MOTION);
+			motion->v_x += motion->a_x;
+			motion->v_y += motion->a_y;
+			ComponentSprite* sprite = (ComponentSprite*)temp->GetComponent(Component::SPRITE);
+			sprite->x += motion->v_x;
+			sprite->y += motion->v_y;
+		}
 
 	}
 }

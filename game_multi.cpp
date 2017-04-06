@@ -59,9 +59,11 @@ void GameMulti::Run()
 
 void GameMulti::AddSystems()
 {
-	System* temp = (System*) new SystemRender();
-	temp->SetEngine(&engine);
-	engine.AddSystem(temp);
+	System* systemrender = (System*) new SystemRender();
+	systemrender->SetEngine(&engine);
+	engine.AddSystem(systemrender);
+	System* systemmotion = (System*) new SystemMotion();
+	engine.AddSystem(systemmotion);
 
 }
 
