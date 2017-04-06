@@ -31,11 +31,10 @@ void SystemRender::Update()
 	// TODO: Iterate over all entities with the sprite component and print to
 	// screen. For player slimes, draw the pupils as well.
 
-	std::set<Component::Tag> tags = (Tags(Component::SPRITE)).List();
-	std::set<Entity*> verz = engine->GetEntityStream()->WithTags(tags);
+	std::set<Entity*> entities = engine->GetEntityStream()->WithTag(Component::SPRITE);
 	std::set<Entity*>::iterator it;
 
-	for (it = verz.begin(); it != verz.end(); it++) {
+	for (it = entities.begin(); it != entities.end(); it++) {
 		Entity* temp = *it;
 		ComponentSprite* tempo = (ComponentSprite*)temp->GetComponent(Component::SPRITE);
 		Graphics::Instance().DrawBitmap(tempo->sprite, tempo->x, tempo->y);
