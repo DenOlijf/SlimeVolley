@@ -20,6 +20,8 @@ void SystemMotion::Update()
 	{
 		// TODO: Update velocity and position of all entities with motion
 		// component
+		
+		//engine->GetEntityStream()->WithTag()
 
 	}
 }
