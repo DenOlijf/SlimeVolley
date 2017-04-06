@@ -74,7 +74,7 @@ void GameMulti::RemoveSystems()
 void GameMulti::MakeEntities()
 {
 	Entity* ball = new Entity();
-	ball->Add(new ComponentSprite(Graphics::SPRITE_BALL, 150, BALL_X_OFFSET, 738, BALL_X_OFFSET, BALL_INIT_Y, BALL_Y_OFFSET, 288, BALL_Y_OFFSET));
+	ball->Add(new ComponentSprite(Graphics::SPRITE_BALL, 150-BALL_X_OFFSET, BALL_X_OFFSET, 738, BALL_X_OFFSET, BALL_INIT_Y, BALL_Y_OFFSET, 288, BALL_Y_OFFSET));
 	ball->Add(new ComponentMotion(0, 0, 0, BALL_A_Y));
 	ball->Add(new ComponentBall());
 	engine.AddEntity(ball);
@@ -92,72 +92,72 @@ void GameMulti::MakeEntities()
 	engine.AddEntity(player2);
 
 	Entity* point1 = new Entity();
-	point1->Add(new ComponentSprite(Graphics::SPRITE_POINT, 20, 20, 20, 0,60, 60, 60, 0));
+	point1->Add(new ComponentSprite(Graphics::SPRITE_POINT, 20, 20, 20, 0, 10, 10, 10, 0));
 	point1->Add(new ComponentPoint(1, 1));
 	engine.AddEntity(point1);
 
 	Entity* point2 = new Entity();
-	point2->Add(new ComponentSprite(Graphics::SPRITE_POINT, 50, 50, 50, 0, 60,60,60, 0));
+	point2->Add(new ComponentSprite(Graphics::SPRITE_POINT, 60, 60, 60, 0, 10, 10, 10, 0));
 	point2->Add(new ComponentPoint(1, 2));
 	engine.AddEntity(point2);
 
 	Entity* point3 = new Entity();
-	point3->Add(new ComponentSprite(Graphics::SPRITE_POINT, 80, 80, 80, 0, 60, 60, 60, 0));
+	point3->Add(new ComponentSprite(Graphics::SPRITE_POINT, 100, 100, 100, 0, 10, 10, 10, 0));
 	point3->Add(new ComponentPoint(1, 3));
 	engine.AddEntity(point3);
 
 	Entity* point4 = new Entity();
-	point4->Add(new ComponentSprite(Graphics::SPRITE_POINT, 110, 110, 110, 0, 60, 60, 60, 0));
+	point4->Add(new ComponentSprite(Graphics::SPRITE_POINT, 140, 140, 140, 0, 10, 10, 10, 0));
 	point4->Add(new ComponentPoint(1, 4));
 	engine.AddEntity(point4);
 
 	Entity* point5 = new Entity();
-	point5->Add(new ComponentSprite(Graphics::SPRITE_POINT, 140, 140, 140, 0, 60, 60, 60, 0));
+	point5->Add(new ComponentSprite(Graphics::SPRITE_POINT, 180, 180, 180, 0, 10, 10, 10, 0));
 	point5->Add(new ComponentPoint(1, 5));
 	engine.AddEntity(point5);
 
 	Entity* point6 = new Entity();
-	point6->Add(new ComponentSprite(Graphics::SPRITE_POINT, 170, 170, 170, 0, 60, 60, 60, 0));
+	point6->Add(new ComponentSprite(Graphics::SPRITE_POINT, 220, 220, 220, 0, 10, 10, 10, 0));
 	point6->Add(new ComponentPoint(1, 6));
 	engine.AddEntity(point6);
 
 	Entity* point7 = new Entity();
-	point7->Add(new ComponentSprite(Graphics::SPRITE_POINT, 200, 200, 200, 0, 60, 60, 60, 0));
+	point7->Add(new ComponentSprite(Graphics::SPRITE_POINT, 260, 260, 260, 0, 10, 10, 10, 0));
 	point7->Add(new ComponentPoint(1, 7));
 	engine.AddEntity(point7);
 
 	Entity* point8 = new Entity();
-	point8->Add(new ComponentSprite(Graphics::SPRITE_POINT, 395, 395, 395, 0, 60, 60, 60, 0));
+	point8->Add(new ComponentSprite(Graphics::SPRITE_POINT, 469, 469, 469, 0, 10, 10, 10, 0));
 	point8->Add(new ComponentPoint(2, 1));
 	engine.AddEntity(point8);
 
 	Entity* point9 = new Entity();
-	point9->Add(new ComponentSprite(Graphics::SPRITE_POINT, 425, 425, 425, 0, 60, 60, 60, 0));
+	point9->Add(new ComponentSprite(Graphics::SPRITE_POINT, 509, 509, 509, 0, 10, 10, 10, 0));
 	point9->Add(new ComponentPoint(2, 2));
 	engine.AddEntity(point9);
 
 	Entity* point10 = new Entity();
-	point10->Add(new ComponentSprite(Graphics::SPRITE_POINT, 455, 455, 455, 0, 60, 60, 60, 0));
+	point10->Add(new ComponentSprite(Graphics::SPRITE_POINT, 549, 549, 549, 0, 10, 10, 10, 0));
 	point10->Add(new ComponentPoint(2, 3));
 	engine.AddEntity(point10);
 
 	Entity* point11 = new Entity();
-	point11->Add(new ComponentSprite(Graphics::SPRITE_POINT, 485, 485, 485, 0, 60, 60, 60, 0));
+	point11->Add(new ComponentSprite(Graphics::SPRITE_POINT, 589, 589, 589, 0, 10, 10, 10, 0));
 	point11->Add(new ComponentPoint(2, 4));
 	engine.AddEntity(point11);
 
 	Entity* point12 = new Entity();
-	point12->Add(new ComponentSprite(Graphics::SPRITE_POINT, 515,515,515, 0, 60, 60, 60, 0));
+	point12->Add(new ComponentSprite(Graphics::SPRITE_POINT, 629, 629, 629, 0, 10, 10, 10, 0));
 	point12->Add(new ComponentPoint(2, 5));
 	engine.AddEntity(point12);
 
 	Entity* point13 = new Entity();
-	point13->Add(new ComponentSprite(Graphics::SPRITE_POINT, 545,545,545, 0, 60, 60, 60, 0));
+	point13->Add(new ComponentSprite(Graphics::SPRITE_POINT, 669, 669, 669, 0, 10, 10, 10, 0));
 	point13->Add(new ComponentPoint(2, 6));
 	engine.AddEntity(point13);
 
 	Entity* point14 = new Entity();
-	point14->Add(new ComponentSprite(Graphics::SPRITE_POINT, 575, 575, 575, 0, 60, 60, 60, 0));
+	point14->Add(new ComponentSprite(Graphics::SPRITE_POINT, 709, 709, 709, 0, 10, 10, 10, 0));
 	point14->Add(new ComponentPoint(2, 7));
 	engine.AddEntity(point14);
 
