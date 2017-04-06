@@ -30,8 +30,8 @@ void SystemMotion::Update()
 			motion->v_x += motion->a_x;
 			motion->v_y += motion->a_y;
 			ComponentSprite* sprite = (ComponentSprite*)temp->GetComponent(Component::SPRITE);
-			sprite->x -= motion->v_x; //-= vanwege de omgekeerde board door de allegro
-			sprite->y -= motion->v_y;
+			sprite->x = min(sprite->x -= motion->v_x,sprite->x_max); //-= vanwege de omgekeerde board door de allegro
+			sprite->y = min(sprite->y -= motion->v_y,sprite->y_max);
 		}
 
 	}

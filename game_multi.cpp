@@ -59,11 +59,12 @@ void GameMulti::Run()
 
 void GameMulti::AddSystems()
 {
+	System* systemmotion = (System*) new SystemMotion();
+	engine.AddSystem(systemmotion);
 	System* systemrender = (System*) new SystemRender();
 	systemrender->SetEngine(&engine);
 	engine.AddSystem(systemrender);
-	System* systemmotion = (System*) new SystemMotion();
-	engine.AddSystem(systemmotion);
+	
 
 }
 
@@ -76,7 +77,7 @@ void GameMulti::RemoveSystems()
 void GameMulti::MakeEntities()
 {
 	Entity* ball = new Entity();
-	ball->Add(new ComponentSprite(Graphics::SPRITE_BALL, 150-BALL_X_OFFSET, BALL_X_OFFSET, 738, BALL_X_OFFSET, BALL_INIT_Y, BALL_Y_OFFSET, 288, BALL_Y_OFFSET));
+	ball->Add(new ComponentSprite(Graphics::SPRITE_BALL, 150-BALL_X_OFFSET, BALL_X_OFFSET, 738, BALL_X_OFFSET, BALL_INIT_Y, BALL_Y_OFFSET, 277, BALL_Y_OFFSET));
 	ball->Add(new ComponentMotion(0, 0, 0, BALL_A_Y));
 	ball->Add(new ComponentBall());
 	engine.AddEntity(ball);
