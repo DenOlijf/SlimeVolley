@@ -28,7 +28,7 @@ void SystemCollision::Update()
 		HandleBallNetCollision();
 		HandlePlayerWallCollision(cspr_player_1, cmot_player_1);
 		HandlePlayerWallCollision(cspr_player_2, cmot_player_2);
-		//HandleBallPlayerCollision(cspr_player_1, cmot_player_1);
+		HandleBallPlayerCollision(cspr_player_1, cmot_player_1);
 		HandleBallPlayerCollision(cspr_player_2, cmot_player_2);
 	}
 }

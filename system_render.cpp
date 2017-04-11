@@ -38,7 +38,7 @@ void SystemRender::Update()
 	for (it = entities.begin(); it != entities.end(); it++) {
 		Entity* temp = *it;
 		ComponentSprite* tempo = (ComponentSprite*)temp->GetComponent(Component::SPRITE);
-		Graphics::Instance().DrawBitmap(tempo->sprite, tempo->x, Y_MAX-tempo->y, tempo->x_off, tempo->y_off);
+		Graphics::Instance().DrawBitmap(tempo->sprite, tempo->x, Y_MAX-tempo->y, tempo->x_off, -tempo->y_off);
 
 	}
 
