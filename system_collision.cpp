@@ -28,7 +28,7 @@ void SystemCollision::Update()
 		HandleBallNetCollision();
 		HandlePlayerWallCollision(cspr_player_1, cmot_player_1);
 		HandlePlayerWallCollision(cspr_player_2, cmot_player_2);
-		HandleBallPlayerCollision(cspr_player_1, cmot_player_1);
+		//HandleBallPlayerCollision(cspr_player_1, cmot_player_1);
 		HandleBallPlayerCollision(cspr_player_2, cmot_player_2);
 	}
 }
@@ -45,9 +45,15 @@ void SystemCollision::HandleBallWallCollision()
 		cmot_ball->v_x *= -1;
 	}
 	
-	/*if (cspr_ball->y > cspr_ball->y_max) {
-		cspr_ball->y = cspr_ball->y_max + BALL_Y_OFFSET;
-	}*/
+	if (cspr_ball->y > cspr_ball->y_max) {
+		cspr_ball->y = cspr_ball->y_max;
+	}
+
+	if (cspr_ball->y < cspr_ball->y_min) {
+		cspr_ball->y = cspr_ball->y_min;
+		cmot_ball->v_y = 0;
+	}
+
 }
 
 void SystemCollision::HandleBallNetCollision()
@@ -73,8 +79,8 @@ void SystemCollision::HandlePlayerWallCollision(ComponentSprite* csprPlayer, Com
 		csprPlayer->x = csprPlayer->x_max;
 		cmotPlayer->v_x = 0;
 	}
-	if (csprPlayer->y > csprPlayer->y_max) {
-		csprPlayer->y = csprPlayer->y_max;
+	if (csprPlayer->y < csprPlayer->y_min) {
+		csprPlayer->y = csprPlayer->y_min;
 		cmotPlayer->v_y = 0;
 	}
 

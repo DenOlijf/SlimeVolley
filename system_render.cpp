@@ -10,6 +10,7 @@
 #include "component.h"
 #include "component_player.h"
 #include "component_sprite.h"
+#include "constants.h"
 #include "engine.h"
 #include "entity.h"
 #include "entity_stream.h"
@@ -37,7 +38,7 @@ void SystemRender::Update()
 	for (it = entities.begin(); it != entities.end(); it++) {
 		Entity* temp = *it;
 		ComponentSprite* tempo = (ComponentSprite*)temp->GetComponent(Component::SPRITE);
-		Graphics::Instance().DrawBitmap(tempo->sprite, tempo->x, tempo->y);
+		Graphics::Instance().DrawBitmap(tempo->sprite, tempo->x, Y_MAX-tempo->y, tempo->x_off, tempo->y_off);
 
 	}
 

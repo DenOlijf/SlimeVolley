@@ -4,6 +4,10 @@
 
 #define FONT_SIZE 26
 
+#define Y_MAX 299
+#define X_MAX 749
+#define Y_MIN 75
+
 #define RADIUS_SLIME 40
 #define RADIUS_BALL 12
 
@@ -15,6 +19,7 @@
 #define SLIME_Y_OFFSET -39
 #define BALL_X_OFFSET 11
 #define BALL_Y_OFFSET -11
+#define NET_X_OFFSET 2
 
 #define SLIME_V_X 6
 #define SLIME_V_Y 11.625
