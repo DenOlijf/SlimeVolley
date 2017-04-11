@@ -53,10 +53,10 @@ void SystemCollision::HandleBallWallCollision()
 void SystemCollision::HandleBallNetCollision()
 {
 	
-	if (cspr_ball->x >= 375 - BALL_X_OFFSET && cspr_ball->x <= 375 && cspr_ball->y >= 253 - BALL_X_OFFSET) {
+	if (cspr_ball->x >= 375 - 2*BALL_X_OFFSET && cspr_ball->x <= 375 && cspr_ball->y >= 253 - BALL_X_OFFSET) {
 		cmot_ball->v_x *= -1;
 	}
-	if (cspr_ball->x >= 375 - BALL_X_OFFSET && cspr_ball->x <= 375 && cspr_ball->y >= 253 - 2*BALL_X_OFFSET && cspr_ball->y < 253-BALL_X_OFFSET) {
+	if (cspr_ball->x >= 375 - 2*BALL_X_OFFSET && cspr_ball->x <= 375 && cspr_ball->y >= 253 - 2*BALL_X_OFFSET && cspr_ball->y < 253-BALL_X_OFFSET) {
 		cmot_ball->v_x *= -1;
 		cmot_ball->v_y *= -1;
 	}
