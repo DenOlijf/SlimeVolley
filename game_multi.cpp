@@ -60,6 +60,7 @@ void GameMulti::Run()
 void GameMulti::AddSystems()
 {
 	System* systemmotion = (System*) new SystemMotion();
+	systemmotion->SetEngine(&engine);
 	engine.AddSystem(systemmotion);
 
 	System* systemcollision = (System*) new SystemCollision();

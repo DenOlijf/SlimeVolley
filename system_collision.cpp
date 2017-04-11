@@ -40,16 +40,14 @@ void SystemCollision::HandleBallWallCollision()
 		cspr_ball->x = cspr_ball->x_min;
 		cmot_ball->v_x *= -1;
 	}
-	else {
-		if (cspr_ball->x > cspr_ball->x_max) {
-			cspr_ball->x = cspr_ball->x_max;
-			cmot_ball->v_x *= -1;
-		}
+	else if(cspr_ball->x > cspr_ball->x_max) {
+		cspr_ball->x = cspr_ball->x_max;
+		cmot_ball->v_x *= -1;
 	}
 	
-	if (cspr_ball->y > cspr_ball->y_max) {
-		cspr_ball->y = cspr_ball->y_max;
-	}
+	/*if (cspr_ball->y > cspr_ball->y_max) {
+		cspr_ball->y = cspr_ball->y_max + BALL_Y_OFFSET;
+	}*/
 }
 
 void SystemCollision::HandleBallNetCollision()
