@@ -5,6 +5,8 @@
 #include "component_motion.h"
 #include "component_player.h"
 #include "engine.h"
+#include "game.h"
+
 
 void SystemInputMulti::Update()
 {
@@ -21,57 +23,36 @@ void SystemInputMulti::Update()
 		engine->GetContext()->SwitchPaused();
 	}
 	else if (engine->GetContext()->GetKeyPressed(ALLEGRO_KEY_ESCAPE, true)) {
-		// IK SNAP NIET HOE JE EXIT
+		engine->GetContext()->SetState(MULTI_GEDAAN);
 	}
-
-	std::set<Entity*> entities = engine->GetEntityStream()->WithTag(Component::PLAYER);
-	std::set<Entity*>::iterator it;
-
-	Entity* player1 = NULL;
-	Entity* player2 = NULL;
-
-	//entities juist zetten
-	for (it = entities.begin(); it != entities.end(); it++) {
-		Entity* temp = *it;
-		ComponentPlayer* player = (ComponentPlayer*)temp->GetComponent(Component::PLAYER);
-		if (player->player_id == 1) {
-			player1 = temp;
-		}
-		else {
-			player2 = temp;
-		}
-	}
-	//nu verder werken met movement van player1 en 2
-	ComponentMotion* mot1 = (ComponentMotion*)player1->GetComponent(Component::MOTION);
-	ComponentMotion* mot2 = (ComponentMotion*)player2->GetComponent(Component::MOTION);
 
 	if (engine->GetContext()->GetKeyPressed(ALLEGRO_KEY_D, false)) {
-		mot1->v_x = 6;
+		cmot_player_1->v_x = SLIME_V_X;
 	}else if (engine->GetContext()->GetKeyPressed(ALLEGRO_KEY_Q, false)) {
-		mot1->v_x = -6;
+		cmot_player_1->v_x = -SLIME_V_X;
 	}else {
-		mot1->v_x = 0;
+		cmot_player_1->v_x = 0;
 	}
 	if (engine->GetContext()->GetKeyPressed(ALLEGRO_KEY_Z, true)) {
-		mot1->v_y = 11.625;
+		cmot_player_1->v_y = SLIME_V_Y;
 	}
 	else if (engine->GetContext()->GetKeyPressed(ALLEGRO_KEY_S, true)) {
-		mot1->v_y = -5;
+		cmot_player_1->v_y = -5;
 	}
 	
 	if (engine->GetContext()->GetKeyPressed(ALLEGRO_KEY_UP, true)) {
-		mot2->v_y = 11.625;
+		cmot_player_2->v_y = SLIME_V_Y;
 	}else if (engine->GetContext()->GetKeyPressed(ALLEGRO_KEY_DOWN, true)) {
-		mot2->v_y = -5;
+		cmot_player_2->v_y = -5;
 	}
 	if (engine->GetContext()->GetKeyPressed(ALLEGRO_KEY_RIGHT, false)) {
-		mot2->v_x = 6;
+		cmot_player_2->v_x = SLIME_V_X;
 	}
 	else if (engine->GetContext()->GetKeyPressed(ALLEGRO_KEY_LEFT, false)) {
-		mot2->v_x = -6;
+		cmot_player_2->v_x = -SLIME_V_X;
 	}
 	else {
-		mot2->v_x = 0;
+		cmot_player_2->v_x = 0;
 	}
 
 }
@@ -79,6 +60,14 @@ void SystemInputMulti::Update()
 bool SystemInputMulti::Initialize()
 {
 	// TODO: Initialize all component pointers (optional)
-	//SNAP NIET WAT ZE BEDOELEN
+	std::set<Entity*> ents = engine->GetEntityStream()->WithTag(Component::PLAYER);
+	std::set<Entity*>::iterator it;
+	for (it = ents.begin(); it != ents.end(); it++) {
+		Entity* temp = *it;
+		if (((ComponentPlayer*)temp->GetComponent(Component::PLAYER))->player_id == 1) {
+			cmot_player_1 = (ComponentMotion*)temp->GetComponent(Component::MOTION);
+		}
+		else cmot_player_2 = (ComponentMotion*)temp->GetComponent(Component::MOTION);
+	}
 	return true;
 }

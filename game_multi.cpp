@@ -66,21 +66,23 @@ void GameMulti::Run()
 
 void GameMulti::AddSystems()
 {
-	System* systemmotion = (System*) new SystemMotion();
-	systemmotion->SetEngine(&engine);
-	engine.AddSystem(systemmotion);
+	System* system_input_multi = (System*) new SystemInputMulti();
+	system_input_multi->SetEngine(&engine);
+	engine.AddSystem(system_input_multi);
 
-	System* systemcollision = (System*) new SystemCollision();
-	systemcollision->SetEngine(&engine);
-	engine.AddSystem(systemcollision);
+	System* system_motion = (System*) new SystemMotion();
+	system_motion->SetEngine(&engine);
+	engine.AddSystem(system_motion);
+
+	System* system_collision = (System*) new SystemCollision();
+	system_collision->SetEngine(&engine);
+	engine.AddSystem(system_collision);
 	
-	System* systemrender = (System*) new SystemRender();
-	systemrender->SetEngine(&engine);
-	engine.AddSystem(systemrender);
+	System* system_render = (System*) new SystemRender();
+	system_render->SetEngine(&engine);
+	engine.AddSystem(system_render);
 
-	System* systeminput = (System*) new SystemInputMulti();
-	systeminput->SetEngine(&engine);
-	engine.AddSystem(systeminput);
+	
 }
 
 void GameMulti::RemoveSystems()

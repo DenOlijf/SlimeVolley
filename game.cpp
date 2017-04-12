@@ -332,7 +332,7 @@ void Game::StartReplay(int selected_item)
 			printf("File %s does not exist\n", file_name.c_str());
 		}
 	}
-
+	
 	// Reset score in context
 	context->ResetScore();
 }

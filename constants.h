@@ -37,3 +37,5 @@
 
 #define REPLAY_MIN 0.5
 #define REPLAY_MAX 4
+
+#define MULTI_GEDAAN 1
