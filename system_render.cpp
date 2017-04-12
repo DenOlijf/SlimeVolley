@@ -82,7 +82,6 @@ void SystemRender::Update()
 	else if (state == PLAYER2_WINS) {
 		Graphics::Instance().DrawString("Player 2 wins!!", 375, Y_MAX - 30, c, Graphics::ALIGN_LEFT);
 		Graphics::Instance().DrawString("Press SPACE to play again, press ESC to go back to menu", 375, 150, c, Graphics::ALIGN_CENTER);
-		//engine->GetContext()->SetState(0);
 		Graphics::Instance().ExecuteDraws();
 		Sleep(1000 * FREEZE_TIME);
 	}
