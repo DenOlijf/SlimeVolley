@@ -39,3 +39,8 @@
 #define REPLAY_MAX 4
 
 #define MULTI_GEDAAN 1
+
+#define PLAYER1_SCORES 2
+#define PLAYER2_SCORES 3
+#define PLAYER1_WINS 4
+#define PLAYER2_WINS 5

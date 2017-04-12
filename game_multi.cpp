@@ -66,6 +66,10 @@ void GameMulti::Run()
 
 void GameMulti::AddSystems()
 {
+	System* system_state_multi = (System*) new SystemStateMulti();
+	system_state_multi->SetEngine(&engine);
+	engine.AddSystem(system_state_multi);
+
 	System* system_input_multi = (System*) new SystemInputMulti();
 	system_input_multi->SetEngine(&engine);
 	engine.AddSystem(system_input_multi);

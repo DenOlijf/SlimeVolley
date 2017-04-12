@@ -60,6 +60,33 @@ void SystemRender::Update()
 	// TODO: Print an appropriate message if state != 0, depending on state
 	// and current level (1-3 for singleplayer, 0 for multiplayer)
 
+	if (state == PLAYER1_SCORES) {
+		Graphics::Instance().DrawString("Player 1 scores!!", 375, Y_MAX - 30, c, Graphics::ALIGN_RIGHT);
+		engine->GetContext()->SetState(0);
+		Graphics::Instance().ExecuteDraws();
+		Sleep(1000 * FREEZE_TIME);
+	}
+	else if (state == PLAYER2_SCORES) {
+		Graphics::Instance().DrawString("Player 2 scores!!", 375, Y_MAX - 30, c, Graphics::ALIGN_LEFT);
+		engine->GetContext()->SetState(0);
+		Graphics::Instance().ExecuteDraws();
+		Sleep(1000 * FREEZE_TIME);
+	}
+	else if (state == PLAYER1_WINS) {
+		Graphics::Instance().DrawString("Player 1 wins!!", 375, Y_MAX - 30, c, Graphics::ALIGN_RIGHT);
+		Graphics::Instance().DrawString("Press SPACE to play again, press ESC to go back to menu",375,150,c,Graphics::ALIGN_CENTER);
+		engine->GetContext()->SetState(0);
+		Graphics::Instance().ExecuteDraws();
+		Sleep(1000 * FREEZE_TIME);
+	}
+	else if (state == PLAYER2_WINS) {
+		Graphics::Instance().DrawString("Player 2 wins!!", 375, Y_MAX - 30, c, Graphics::ALIGN_LEFT);
+		Graphics::Instance().DrawString("Press SPACE to play again, press ESC to go back to menu", 375, 150, c, Graphics::ALIGN_CENTER);
+		//engine->GetContext()->SetState(0);
+		Graphics::Instance().ExecuteDraws();
+		Sleep(1000 * FREEZE_TIME);
+	}
+
 	// Update current frame rate
 	fps_accum++;
 	t = al_get_time();
