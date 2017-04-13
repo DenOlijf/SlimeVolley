@@ -63,13 +63,11 @@ void SystemRender::Update()
 
 	if (state == PLAYER_LEFT_SCORES) {
 		Graphics::Instance().DrawString("Player 1 scores!", 375, Y_MAX - (-30), c, Graphics::ALIGN_CENTER);
-		//engine->GetContext()->SetState(0);
 		Graphics::Instance().ExecuteDraws();
 		Sleep(1000 * FREEZE_TIME);
 	}
 	else if (state == PLAYER_RIGHT_SCORES) {
 		Graphics::Instance().DrawString("Player 2 scores!", 375, Y_MAX - (-30), c, Graphics::ALIGN_CENTER);
-		//engine->GetContext()->SetState(0);
 		Graphics::Instance().ExecuteDraws();
 		Sleep(1000 * FREEZE_TIME);
 	}
