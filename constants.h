@@ -20,6 +20,7 @@
 #define BALL_X_OFFSET 11
 #define BALL_Y_OFFSET -11
 #define NET_X_OFFSET 2
+#define EYE_OFFSET 20
 
 #define SLIME_V_X 6
 #define SLIME_V_Y 11.625
