@@ -50,7 +50,6 @@ void SystemCollision::HandleBallWallCollision()
 	}
 
 	if (cspr_ball->y < cspr_ball->y_min) {
-		cspr_ball->y = cspr_ball->y_min;
 		cmot_ball->v_y = 0;
 	}
 

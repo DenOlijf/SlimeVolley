@@ -31,6 +31,9 @@ void SystemStateMulti::Update()
 			// update the context accordingly.
 
 			if (cspr_ball->y <= cspr_ball->y_min) {
+				
+				freeze_time = 1;
+
 				cmot_player_1->v_x = 0;
 				cmot_player_1->v_y = 0;
 
@@ -42,29 +45,14 @@ void SystemStateMulti::Update()
 
 				if (cspr_ball->x < 375 - BALL_X_OFFSET) {
 					engine->GetContext()->IncreasePoints(2);
-					engine->GetContext()->SetState(PLAYER2_SCORES);
+					engine->GetContext()->SetState(PLAYER_RIGHT_SCORES);
 				}
 				else {
 					engine->GetContext()->IncreasePoints(1);
-					engine->GetContext()->SetState(PLAYER1_SCORES);
+					engine->GetContext()->SetState(PLAYER_LEFT_SCORES);
 				}
-
-				if (engine->GetContext()->GetPoints(1) == 7) {
-					engine->GetContext()->SetState(PLAYER1_WINS);
-				}
-				else if (engine->GetContext()->GetPoints(2) == 7) {
-					engine->GetContext()->SetState(PLAYER2_WINS);
-				}
-				
-					cspr_ball->x = SLIME_1_INIT_X;
-					cspr_ball->y = BALL_INIT_Y;
-					cspr_player_1->x = SLIME_1_INIT_X;
-					cspr_player_1->y = 0;
-					cspr_player_2->x = SLIME_2_INIT_X;
-					cspr_player_2->y = 0;
 				
 			}
-
 		}
 		else
 		{
@@ -73,7 +61,36 @@ void SystemStateMulti::Update()
 			// for	user input: spacebar to restart, ESC to quit (handled by
 			// input system already). If the game is not finished yet, update
 			// the context and reset player and ball positions.
-			freeze_time -= 1;
+			if (freeze_time > 0) {
+				freeze_time -= 1;
+			}
+			if (freeze_time == 0) {
+				engine->GetContext()->SetFrozen(false);
+				if (engine->GetContext()->GetPoints(1) == 7) {
+					engine->GetContext()->SetState(PLAYER_LEFT_WINS);
+				}
+				else if (engine->GetContext()->GetPoints(2) == 7) {
+					engine->GetContext()->SetState(PLAYER_RIGHT_WINS);
+					//engine->GetContext()->SetPaused(true);
+				}
+				//nog wachten op user input, geen idee hoe die shit moet
+
+				else{
+					if (engine->GetContext()->GetState() == PLAYER_LEFT_SCORES) {
+						cspr_ball->x = SLIME_1_INIT_X;
+					}
+					else {
+						cspr_ball->x = SLIME_2_INIT_X;
+					}
+					cspr_ball->y = BALL_INIT_Y;
+					cspr_player_1->x = SLIME_1_INIT_X;
+					cspr_player_1->y = 0;
+					cspr_player_2->x = SLIME_2_INIT_X;
+					cspr_player_2->y = 0;
+					engine->GetContext()->SetState(0);
+				}
+			}
+
 		}
 	}
 }

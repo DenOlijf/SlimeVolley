@@ -38,9 +38,15 @@
 #define REPLAY_MIN 0.5
 #define REPLAY_MAX 4
 
-#define MULTI_GEDAAN 1
+#define LEVEL_WON -1
+#define LEVEL_LOST -2
 
-#define PLAYER1_SCORES 2
-#define PLAYER2_SCORES 3
-#define PLAYER1_WINS 4
-#define PLAYER2_WINS 5
+#define PLAYER_LEFT_WINS -3
+#define PLAYER_RIGHT_WINS -4
+
+#define PLAYER_LEFT_SCORES -5
+#define PLAYER_RIGHT_SCORES -8
+
+#define CONTINUE_AFTER_WIN 1
+#define STOP_SINGLE 2
+#define REPLAY_SINGLE 3
