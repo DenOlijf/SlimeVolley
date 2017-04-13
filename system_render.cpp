@@ -74,15 +74,10 @@ void SystemRender::Update()
 	else if (state == PLAYER_LEFT_WINS) {
 		Graphics::Instance().DrawString("Player 1 wins!", 375, Y_MAX - (-20), c, Graphics::ALIGN_CENTER);
 		Graphics::Instance().DrawString("Press SPACE to play again, press ESC to go back to menu", 375, Y_MAX - (-50),c,Graphics::ALIGN_CENTER);
-		//engine->GetContext()->SetState(0); //state moet niet op nul want spel is gedaan?
-		Graphics::Instance().ExecuteDraws();
-		//Sleep(1000 * FREEZE_TIME);
 	}
 	else if (state == PLAYER_RIGHT_WINS) {
 		Graphics::Instance().DrawString("Player 2 wins!!", 375, Y_MAX - (-20), c, Graphics::ALIGN_CENTER);
 		Graphics::Instance().DrawString("Press SPACE to play again, press ESC to go back to menu", 375, Y_MAX - (-50), c, Graphics::ALIGN_CENTER);
-		Graphics::Instance().ExecuteDraws();
-		//Sleep(1000 * FREEZE_TIME);
 	}
 
 	// Update current frame rate

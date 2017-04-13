@@ -30,12 +30,12 @@ void SystemStateMulti::Update()
 			// 1.2 seconds and reset all velocities. Determine the winner and
 			// update the context accordingly.
 			
-			engine->GetContext()->SetFrozen(false);
+			//engine->GetContext()->SetFrozen(false);
 
 			if (cspr_ball->y <= cspr_ball->y_min) {
 				
 				freeze_time = 1;
-				engine->GetContext()->SetFrozen(true);
+				//engine->GetContext()->SetFrozen(true);
 
 				cmot_player_1->v_x = 0;
 				cmot_player_1->v_y = 0;
@@ -46,15 +46,17 @@ void SystemStateMulti::Update()
 				cmot_ball->v_x = 0;
 				cmot_ball->v_y = 0;
 
-				if (cspr_ball->x < 375 - BALL_X_OFFSET) {
-					engine->GetContext()->IncreasePoints(2);
-					engine->GetContext()->SetState(PLAYER_RIGHT_SCORES);
+				if (engine->GetContext()->GetState() != PLAYER_LEFT_WINS && engine->GetContext()->GetState() != PLAYER_RIGHT_WINS) {
+
+					if (cspr_ball->x < 375 - BALL_X_OFFSET) {
+						engine->GetContext()->IncreasePoints(2);
+						engine->GetContext()->SetState(PLAYER_RIGHT_SCORES);
+					}
+					else {
+						engine->GetContext()->IncreasePoints(1);
+						engine->GetContext()->SetState(PLAYER_LEFT_SCORES);
+					}
 				}
-				else {
-					engine->GetContext()->IncreasePoints(1);
-					engine->GetContext()->SetState(PLAYER_LEFT_SCORES);
-				}
-				
 			}
 		}
 		else
