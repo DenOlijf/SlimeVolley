@@ -66,6 +66,14 @@ void GameMulti::Run()
 
 void GameMulti::AddSystems()
 {
+	System* system_eyes = (System*) new SystemEyes();
+	system_eyes->SetEngine(&engine);
+	engine.AddSystem(system_eyes);
+
+	System* system_points = (System*) new SystemPoints();
+	system_points->SetEngine(&engine);
+	engine.AddSystem(system_points);
+
 	System* system_state_multi = (System*) new SystemStateMulti();
 	system_state_multi->SetEngine(&engine);
 	engine.AddSystem(system_state_multi);
@@ -152,17 +160,17 @@ void GameMulti::MakeEntities()
 
 	Entity* point8 = new Entity();
 	point8->Add(new ComponentSprite(Graphics::SPRITE_POINT, X_MAX-270, 469, 469, 11, 290, 10, 10, 0));
-	point8->Add(new ComponentPoint(2, 1));
+	point8->Add(new ComponentPoint(2, 7));
 	engine.AddEntity(point8);
 
 	Entity* point9 = new Entity();
 	point9->Add(new ComponentSprite(Graphics::SPRITE_POINT, X_MAX-230, 509, 509, 11, 290, 10, 10, 0));
-	point9->Add(new ComponentPoint(2, 2));
+	point9->Add(new ComponentPoint(2, 6));
 	engine.AddEntity(point9);
 
 	Entity* point10 = new Entity();
 	point10->Add(new ComponentSprite(Graphics::SPRITE_POINT, X_MAX-190, 549, 549, 11, 290, 10, 10, 0));
-	point10->Add(new ComponentPoint(2, 3));
+	point10->Add(new ComponentPoint(2, 5));
 	engine.AddEntity(point10);
 
 	Entity* point11 = new Entity();
@@ -172,17 +180,17 @@ void GameMulti::MakeEntities()
 
 	Entity* point12 = new Entity();
 	point12->Add(new ComponentSprite(Graphics::SPRITE_POINT, X_MAX-110, 629, 629, 11, 290, 10, 10, 0));
-	point12->Add(new ComponentPoint(2, 5));
+	point12->Add(new ComponentPoint(2, 3));
 	engine.AddEntity(point12);
 
 	Entity* point13 = new Entity();
 	point13->Add(new ComponentSprite(Graphics::SPRITE_POINT, X_MAX-70, 669, 669, 11, 290, 10, 10, 0));
-	point13->Add(new ComponentPoint(2, 6));
+	point13->Add(new ComponentPoint(2, 2));
 	engine.AddEntity(point13);
 
 	Entity* point14 = new Entity();
 	point14->Add(new ComponentSprite(Graphics::SPRITE_POINT, X_MAX-30, 709, 709, 11, 290, 290, 290, 0));
-	point14->Add(new ComponentPoint(2, 7));
+	point14->Add(new ComponentPoint(2, 1));
 	engine.AddEntity(point14);
 
 	Entity* net = new Entity();

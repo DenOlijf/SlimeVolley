@@ -33,9 +33,9 @@ void SystemStateMulti::Update()
 			//engine->GetContext()->SetFrozen(false);
 
 			if (cspr_ball->y <= cspr_ball->y_min) {
+				//engine->GetContext()->SetFrozen(true);
 				
 				freeze_time = 1;
-				//engine->GetContext()->SetFrozen(true);
 
 				cmot_player_1->v_x = 0;
 				cmot_player_1->v_y = 0;

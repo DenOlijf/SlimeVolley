@@ -4,6 +4,8 @@
 #include "component.h"
 #include "component_motion.h"
 #include "component_player.h"
+#include "component_point.h"
+#include "component_sprite.h"
 #include "engine.h"
 #include "game.h"
 
@@ -26,6 +28,22 @@ void SystemInputMulti::Update()
 	else if (engine->GetContext()->GetState() == PLAYER_LEFT_WINS || engine->GetContext()->GetState() == PLAYER_RIGHT_WINS) {
 		if (engine->GetContext()->GetKeyPressed(ALLEGRO_KEY_SPACE, true)) {
 			engine->GetContext()->Reset(0, false);
+			std::set<Entity*> entities = engine->GetEntityStream()->WithTag(Component::POINT);
+			std::set<Entity*>::iterator it = entities.begin();
+			for (int i = 0; i < 7; i++) {
+				Entity* temp = *it;
+				ComponentPoint* pointcomp = (ComponentPoint*)temp->GetComponent(Component::SPRITE);
+				temp->Remove(pointcomp);
+				temp->Add(new ComponentSprite(Graphics::SPRITE_POINT, 30 + 40 * i, 20 + 40 * i, 20+40*i, 11, 290, 10, 10, 0));
+				it++;
+			}
+			for (int i = 0; i < 7; i++) {
+				Entity* temp = *it;
+				ComponentPoint* pointcomp = (ComponentPoint*)temp->GetComponent(Component::SPRITE);
+				temp->Remove(pointcomp);
+				temp->Add(new ComponentSprite(Graphics::SPRITE_POINT, X_MAX - 270+40*i, 469+40*i, 469+40*i, 11, 290, 10, 10, 0));
+				it++;
+			}
 		}
 		else if (engine->GetContext()->GetKeyPressed(ALLEGRO_KEY_ESCAPE, true)) {
 			engine->GetContext()->SetState(2);
