@@ -46,6 +46,8 @@ void SystemStateMulti::Update()
 				cmot_ball->v_x = 0;
 				cmot_ball->v_y = 0;
 
+				cspr_ball->y = cspr_ball->y_min;
+
 				if (engine->GetContext()->GetState() != PLAYER_LEFT_WINS && engine->GetContext()->GetState() != PLAYER_RIGHT_WINS) {
 
 					if (cspr_ball->x < 375 - BALL_X_OFFSET) {

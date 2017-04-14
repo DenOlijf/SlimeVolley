@@ -24,26 +24,13 @@ void SystemInputMulti::Update()
 	if (engine->GetContext()->GetKeyPressed(ALLEGRO_KEY_ENTER, true)) {
 		engine->GetContext()->SwitchPaused();
 	}
+	else if (engine->GetContext()->GetKeyPressed(ALLEGRO_KEY_ESCAPE, true)) {
+		engine->GetContext()->SetState(2);
+	}
 	//indien spel gedaan: wachten op input
 	else if (engine->GetContext()->GetState() == PLAYER_LEFT_WINS || engine->GetContext()->GetState() == PLAYER_RIGHT_WINS) {
 		if (engine->GetContext()->GetKeyPressed(ALLEGRO_KEY_SPACE, true)) {
 			engine->GetContext()->Reset(0, false);
-			std::set<Entity*> entities = engine->GetEntityStream()->WithTag(Component::POINT);
-			std::set<Entity*>::iterator it = entities.begin();
-			for (int i = 0; i < 7; i++) {
-				Entity* temp = *it;
-				ComponentSprite* spritecomp = (ComponentSprite*)temp->GetComponent(Component::SPRITE);
-				temp->Remove(spritecomp);
-				temp->Add(new ComponentSprite(Graphics::SPRITE_POINT, 30 + 40 * i, 20 + 40 * i, 20+40*i, 11, 290, 10, 10, 0));
-				it++;
-			}
-			for (int i = 0; i < 7; i++) {
-				Entity* temp = *it;
-				ComponentSprite* pointcomp = (ComponentSprite*)temp->GetComponent(Component::SPRITE);
-				temp->Remove(pointcomp);
-				temp->Add(new ComponentSprite(Graphics::SPRITE_POINT, X_MAX - 270+40*i, 469+40*i, 469+40*i, 11, 290, 10, 10, 0));
-				it++;
-			}
 		}
 		else if (engine->GetContext()->GetKeyPressed(ALLEGRO_KEY_ESCAPE, true)) {
 			engine->GetContext()->SetState(2);
