@@ -79,14 +79,22 @@ void SystemStateMulti::Update()
 				else if (engine->GetContext()->GetPoints(2) == 7) {
 					engine->GetContext()->SetState(PLAYER_RIGHT_WINS);
 				}
-				//nog wachten op user input, geen idee hoe die shit moet
-
 				else{
 					if (engine->GetContext()->GetState() == PLAYER_LEFT_SCORES) {
 						cspr_ball->x = SLIME_1_INIT_X;
 					}
-					else {
+					else if(engine->GetContext()->GetState()== PLAYER_RIGHT_SCORES){
 						cspr_ball->x = SLIME_2_INIT_X;
+					}
+					else { //random beslissen wie bij volgende keren als eerste mag opslaan
+						srand(time(NULL));
+						int opslag = rand() % 2;
+						if (opslag < 1) {
+							cspr_ball->x = SLIME_1_INIT_X;
+						}
+						else {
+							cspr_ball->x = SLIME_2_INIT_X;
+						}
 					}
 					cspr_ball->y = BALL_INIT_Y;
 					cspr_player_1->x = SLIME_1_INIT_X;

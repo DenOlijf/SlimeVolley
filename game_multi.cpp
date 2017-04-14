@@ -66,34 +66,39 @@ void GameMulti::Run()
 
 void GameMulti::AddSystems()
 {
-	System* system_points = (System*) new SystemPoints();
-	system_points->SetEngine(&engine);
-	engine.AddSystem(system_points);
-
-	System* system_state_multi = (System*) new SystemStateMulti();
-	system_state_multi->SetEngine(&engine);
-	engine.AddSystem(system_state_multi);
-
 	System* system_input_multi = (System*) new SystemInputMulti();
 	system_input_multi->SetEngine(&engine);
 	engine.AddSystem(system_input_multi);
 
+	//checken of iemand scoort/wint
+	System* system_state_multi = (System*) new SystemStateMulti();
+	system_state_multi->SetEngine(&engine);
+	engine.AddSystem(system_state_multi);
+
+	//punten aanpassen indien nodig
+	System* system_points = (System*) new SystemPoints();
+	system_points->SetEngine(&engine);
+	engine.AddSystem(system_points);
+
+	//indien niemand punt gemaakt heeft -> alle componenten bewegen
 	System* system_motion = (System*) new SystemMotion();
 	system_motion->SetEngine(&engine);
 	engine.AddSystem(system_motion);
-
+	
+	//collision na motion omdat eerst verplaatsen, daarna botsingen checken
 	System* system_collision = (System*) new SystemCollision();
 	system_collision->SetEngine(&engine);
 	engine.AddSystem(system_collision);
 
+	//eyes voorlaatst omdat eerst alles goed gezet moet worden voor de ogen getekend kunnen worden
 	System* system_eyes = (System*) new SystemEyes();
 	system_eyes->SetEngine(&engine);
 	engine.AddSystem(system_eyes);
-	
+
+	//render laatst zodat alles op juiste plaats getekend wordt
 	System* system_render = (System*) new SystemRender();
 	system_render->SetEngine(&engine);
 	engine.AddSystem(system_render);
-	
 }
 
 void GameMulti::RemoveSystems()
