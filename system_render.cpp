@@ -103,6 +103,15 @@ bool SystemRender::Initialize()
 	int level = engine->GetContext()->GetLevel();
 
 	// TODO: Set background according to level
+	if (level == 0 || level == 1) {
+		Graphics::Instance().SetBackground(Graphics::SPRITE_BACKGROUND1);
+	}
+	else if (level == 2) {
+		Graphics::Instance().SetBackground(Graphics::SPRITE_BACKGROUND2);
+	}
+	else {
+		Graphics::Instance().SetBackground(Graphics::SPRITE_BACKGROUND3);
+	}
 
 	return true;
 }

@@ -69,11 +69,17 @@ int GameSingle::Run()
 void GameSingle::AddSystems()
 {
 	// TODO: Add all systems to the engine
+	sis = SystemInputSingle();
+	engine.AddSystem(&sis);
+
 	smot = SystemMotion();
 	engine.AddSystem(&smot);
 
-	/*scoll = SystemCollision();
-	engine.AddSystem(&scoll);*/
+	scoll = SystemCollision();
+	engine.AddSystem(&scoll);
+
+	sss = SystemStateSingle();
+	engine.AddSystem(&sss);
 	
 	sr = SystemRender();
 	engine.AddSystem(&sr);
@@ -83,8 +89,10 @@ void GameSingle::AddSystems()
 void GameSingle::RemoveSystems()
 {
 	// TODO: Remove all systems from the engine
+	engine.RemoveSystem(&sis);
 	engine.RemoveSystem(&smot);
-	//engine.RemoveSystem(&scoll);
+	engine.RemoveSystem(&scoll);
+	engine.RemoveSystem(&sss);
 	engine.RemoveSystem(&sr);
 
 }

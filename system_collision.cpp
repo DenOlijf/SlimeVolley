@@ -125,7 +125,7 @@ bool SystemCollision::Initialize()
 			cmot_player_1 = (ComponentMotion*)(*it)->GetComponent(Component::MOTION);
 		}
 		else {
-			if (temp == Graphics::SPRITE_PLAYER2) {
+			if (temp == Graphics::SPRITE_PLAYER2 || temp == Graphics::SPRITE_OPPONENT1 || temp == Graphics::SPRITE_OPPONENT2 || temp == Graphics::SPRITE_OPPONENT3) {
 				cspr_player_2 = (ComponentSprite*)(*it)->GetComponent(Component::SPRITE);
 				cmot_player_2 = (ComponentMotion*)(*it)->GetComponent(Component::MOTION);
 			}
