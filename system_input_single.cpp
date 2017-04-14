@@ -22,6 +22,15 @@ void SystemInputSingle::Update()
 	else if (engine->GetContext()->GetKeyPressed(ALLEGRO_KEY_ESCAPE, true)) {
 		engine->GetContext()->SetState(2);
 	}
+	//indien spel gedaan: wachten op input
+	else if (engine->GetContext()->GetState() == PLAYER_LEFT_WINS || engine->GetContext()->GetState() == PLAYER_RIGHT_WINS) {
+		if (engine->GetContext()->GetKeyPressed(ALLEGRO_KEY_SPACE, true)) {
+			engine->GetContext()->Reset(0, false);
+		}
+		else if (engine->GetContext()->GetKeyPressed(ALLEGRO_KEY_ESCAPE, true)) {
+			engine->GetContext()->SetState(2);
+		}
+	}
 
 	//bewegen
 	if (engine->GetContext()->GetKeyPressed(ALLEGRO_KEY_D, false)) {

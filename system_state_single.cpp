@@ -48,14 +48,15 @@ void SystemStateSingle::Update()
 				cmot_ball->v_y = 0;
 
 				cspr_ball->y = cspr_ball->y_min;
-
-				if (cspr_ball->x < 375 - BALL_X_OFFSET) {
-					engine->GetContext()->IncreasePoints(2);
-					engine->GetContext()->SetState(PLAYER_RIGHT_SCORES);
-				}
-				else {						
-					engine->GetContext()->IncreasePoints(1);
-					engine->GetContext()->SetState(PLAYER_LEFT_SCORES);
+				if (engine->GetContext()->GetState() != LEVEL_WON && engine->GetContext()->GetState() != LEVEL_LOST) {
+					if (cspr_ball->x < 375 - BALL_X_OFFSET) {
+						engine->GetContext()->IncreasePoints(2);
+						engine->GetContext()->SetState(PLAYER_RIGHT_SCORES);
+					}
+					else {
+						engine->GetContext()->IncreasePoints(1);
+						engine->GetContext()->SetState(PLAYER_LEFT_SCORES);
+					}
 				}
 			}
 

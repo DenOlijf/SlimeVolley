@@ -78,8 +78,14 @@ void GameSingle::AddSystems()
 	scoll = SystemCollision();
 	engine.AddSystem(&scoll);
 
+	seyes = SystemEyes();
+	engine.AddSystem(&seyes);
+
 	sss = SystemStateSingle();
 	engine.AddSystem(&sss);
+
+	sp = SystemPoints();
+	engine.AddSystem(&sp);
 	
 	sr = SystemRender();
 	engine.AddSystem(&sr);
@@ -92,7 +98,9 @@ void GameSingle::RemoveSystems()
 	engine.RemoveSystem(&sis);
 	engine.RemoveSystem(&smot);
 	engine.RemoveSystem(&scoll);
+	engine.RemoveSystem(&seyes);
 	engine.RemoveSystem(&sss);
+	engine.RemoveSystem(&sp);
 	engine.RemoveSystem(&sr);
 
 }
