@@ -20,13 +20,13 @@ void SystemPoints::Update()
 		int player = pointcomp->player_id;
 		int point = pointcomp->point_id;
 		if (player == 1) {
-			if (point == engine->GetContext()->GetPoints(1) && point!=0) {
+			if (point <= engine->GetContext()->GetPoints(1) && point!=0) {
 				temp->Remove(temp->GetComponent(Component::SPRITE));
 				temp->Add(new ComponentSprite(Graphics::SPRITE_POINT_P1, 30+(point-1)*40, 0, 0, BALL_X_OFFSET, 290, 0, 0, 0));
 			}
 		}
 		else if(player == 2){
-			if (point == engine->GetContext()->GetPoints(2) && point !=0) {
+			if (point <= engine->GetContext()->GetPoints(2) && point !=0) {
 				temp->Remove(temp->GetComponent(Component::SPRITE));
 				temp->Add(new ComponentSprite(Graphics::SPRITE_POINT_P2, X_MAX - 30 -(point-1)*40, 0, 0, BALL_X_OFFSET, 290, 0, 0, 0));
 			}

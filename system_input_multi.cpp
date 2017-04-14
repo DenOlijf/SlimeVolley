@@ -32,14 +32,14 @@ void SystemInputMulti::Update()
 			std::set<Entity*>::iterator it = entities.begin();
 			for (int i = 0; i < 7; i++) {
 				Entity* temp = *it;
-				ComponentPoint* pointcomp = (ComponentPoint*)temp->GetComponent(Component::SPRITE);
-				temp->Remove(pointcomp);
+				ComponentSprite* spritecomp = (ComponentSprite*)temp->GetComponent(Component::SPRITE);
+				temp->Remove(spritecomp);
 				temp->Add(new ComponentSprite(Graphics::SPRITE_POINT, 30 + 40 * i, 20 + 40 * i, 20+40*i, 11, 290, 10, 10, 0));
 				it++;
 			}
 			for (int i = 0; i < 7; i++) {
 				Entity* temp = *it;
-				ComponentPoint* pointcomp = (ComponentPoint*)temp->GetComponent(Component::SPRITE);
+				ComponentSprite* pointcomp = (ComponentSprite*)temp->GetComponent(Component::SPRITE);
 				temp->Remove(pointcomp);
 				temp->Add(new ComponentSprite(Graphics::SPRITE_POINT, X_MAX - 270+40*i, 469+40*i, 469+40*i, 11, 290, 10, 10, 0));
 				it++;

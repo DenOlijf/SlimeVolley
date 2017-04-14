@@ -30,12 +30,12 @@ void SystemStateMulti::Update()
 			// 1.2 seconds and reset all velocities. Determine the winner and
 			// update the context accordingly.
 			
-			//engine->GetContext()->SetFrozen(false);
+			engine->GetContext()->SetFrozen(false);
 
 			if (cspr_ball->y <= cspr_ball->y_min) {
-				//engine->GetContext()->SetFrozen(true);
+				engine->GetContext()->SetFrozen(true);
 				
-				freeze_time = 1;
+				freeze_time = engine->GetContext()->GetFps()*1.2;
 
 				cmot_player_1->v_x = 0;
 				cmot_player_1->v_y = 0;
