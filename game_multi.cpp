@@ -66,50 +66,40 @@ void GameMulti::Run()
 
 void GameMulti::AddSystems()
 {
-	sim = *new SystemInputMulti();
+	//volgorde van toevoegen is volgorde uit game_multi.h
+	sim = SystemInputMulti();
 	engine.AddSystem(&sim);
 
-	//checken of iemand scoort/wint
-	ssm = *new SystemStateMulti();
-	engine.AddSystem(&ssm);
-
-	//punten aanpassen indien nodig
-	sp = *new SystemPoints();
-	engine.AddSystem(&sp);
-
-	//indien niemand punt gemaakt heeft -> alle componenten bewegen
-	smot = *new SystemMotion();
+	smot = SystemMotion();
 	engine.AddSystem(&smot);
 	
-	//collision na motion omdat eerst verplaatsen, daarna botsingen checken
-	scoll = *new SystemCollision();
+	scoll = SystemCollision();
 	engine.AddSystem(&scoll);
 
-	//eyes voorlaatst omdat eerst alles goed gezet moet worden voor de ogen getekend kunnen worden
-	seyes = *new SystemEyes();
+	seyes = SystemEyes();
 	engine.AddSystem(&seyes);
 
-	//render laatst zodat alles op juiste plaats getekend wordt
-	sr = *new SystemRender();
+	ssm = SystemStateMulti();
+	engine.AddSystem(&ssm);
+
+	sp = SystemPoints();
+	engine.AddSystem(&sp);
+
+	sr = SystemRender();
 	engine.AddSystem(&sr);
 }
 
 void GameMulti::RemoveSystems()
 {
+	//systems gewoon verwijderen want zijn niet dynamisch gealloceerd
 	engine.RemoveSystem(&sim);
-	//delete(&sim);
 	engine.RemoveSystem(&ssm);
-	//delete(&ssm);
 	engine.RemoveSystem(&sp);
-	//delete(&sp);
 	engine.RemoveSystem(&smot);
-	//delete(&smot);
 	engine.RemoveSystem(&scoll);
-	//delete(&scoll);
 	engine.RemoveSystem(&seyes);
-	//delete(&seyes);
 	engine.RemoveSystem(&sr);
-	//delete(&sr);
+	
 }
 
 void GameMulti::MakeEntities()
@@ -209,44 +199,45 @@ void GameMulti::MakeEntities()
 
 void GameMulti::DestroyEntities()
 {
+	//alle sprite componenten van de entities deleten
 	std::set<Entity*> sprites = engine.GetEntityStream()->WithTag(Component::SPRITE);
 	std::set<Entity*>::iterator it_sprites;
 	for (it_sprites = sprites.begin(); it_sprites != sprites.end(); it_sprites++) {
 		Entity* temp = *it_sprites;
-		temp->Remove(temp->GetComponent(Component::SPRITE));
-		delete(temp->GetComponent(Component::SPRITE));
+		delete(temp->Remove(temp->GetComponent(Component::SPRITE)));
 	}
 
+	//alle player componenten van de entities deleten
 	std::set<Entity*> players = engine.GetEntityStream()->WithTag(Component::PLAYER);
 	std::set<Entity*>::iterator it_players;
 	for (it_players = players.begin(); it_players != players.end(); it_players++) {
 		Entity* temp = *it_players;
-		temp->Remove(temp->GetComponent(Component::PLAYER));
-		delete(temp->GetComponent(Component::PLAYER));
+		delete(temp->Remove(temp->GetComponent(Component::PLAYER)));
 	}
 
+	//alle motion componenten van de entities deleten
 	std::set<Entity*> motions = engine.GetEntityStream()->WithTag(Component::MOTION);
 	std::set<Entity*>::iterator it_motions;
 	for (it_motions = motions.begin(); it_motions != motions.end(); it_motions++) {
 		Entity* temp = *it_motions;
-		temp->Remove(temp->GetComponent(Component::MOTION));
-		delete(temp->GetComponent(Component::MOTION));
+		delete(temp->Remove(temp->GetComponent(Component::MOTION)));
 	}
 
+	//alle point componenten van de entities deleten
 	std::set<Entity*> points = engine.GetEntityStream()->WithTag(Component::POINT);
 	std::set<Entity*>::iterator it_points;
 	for (it_points = points.begin(); it_points != points.end(); it_points++) {
 		Entity* temp = *it_points;
-		temp->Remove(temp->GetComponent(Component::POINT));
-		delete(temp->GetComponent(Component::POINT));
+		delete(temp->Remove(temp->GetComponent(Component::POINT)));
 	}
 
+	//alle ball componenten van de entities deleten
 	std::set<Entity*> ball = engine.GetEntityStream()->WithTag(Component::BALL);
 	std::set<Entity*>::iterator it_ball = ball.begin();
 	Entity* temp = *it_ball;
-	temp->Remove(temp->GetComponent(Component::BALL));
-	delete(temp->GetComponent(Component::BALL));
+	delete(temp->Remove(temp->GetComponent(Component::BALL)));
 	
+	//de entities zelf deleten
 	std::vector<Entity*> entities = engine.GetEntities();
 	std::vector<Entity*>::iterator it;
 	for (it = entities.begin(); it != entities.end(); it++) {
