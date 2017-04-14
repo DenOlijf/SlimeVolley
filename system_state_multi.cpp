@@ -30,7 +30,9 @@ void SystemStateMulti::Update()
 			// 1.2 seconds and reset all velocities. Determine the winner and
 			// update the context accordingly.
 			
-			engine->GetContext()->SetFrozen(false);
+			if (engine->GetContext()->GetState() != PLAYER_LEFT_WINS && engine->GetContext()->GetState() != PLAYER_RIGHT_WINS) {
+				engine->GetContext()->SetFrozen(false);
+			}
 
 			if (cspr_ball->y <= cspr_ball->y_min) {
 				engine->GetContext()->SetFrozen(true);

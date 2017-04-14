@@ -66,10 +66,6 @@ void GameMulti::Run()
 
 void GameMulti::AddSystems()
 {
-	System* system_eyes = (System*) new SystemEyes();
-	system_eyes->SetEngine(&engine);
-	engine.AddSystem(system_eyes);
-
 	System* system_points = (System*) new SystemPoints();
 	system_points->SetEngine(&engine);
 	engine.AddSystem(system_points);
@@ -89,11 +85,14 @@ void GameMulti::AddSystems()
 	System* system_collision = (System*) new SystemCollision();
 	system_collision->SetEngine(&engine);
 	engine.AddSystem(system_collision);
+
+	System* system_eyes = (System*) new SystemEyes();
+	system_eyes->SetEngine(&engine);
+	engine.AddSystem(system_eyes);
 	
 	System* system_render = (System*) new SystemRender();
 	system_render->SetEngine(&engine);
 	engine.AddSystem(system_render);
-
 	
 }
 

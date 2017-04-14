@@ -31,13 +31,12 @@ void SystemEyes::Update()
 		double centre_y = slime->y + EYE_OFFSET;
 		double dx = cspr_ball->x - centre_x;
 		double dy = cspr_ball->y - centre_y;
-		double tan = (dy) / (dx);
 		double hypothenusa = sqrt(pow(dx, 2) + pow(dy, 2));
 		double cos = dx / hypothenusa;
 		double sin = dy / hypothenusa;
 
-		player->pupil_y = centre_y + sin*5;
-		player->pupil_x = centre_x + cos*5;
+		player->pupil_y = centre_y + sin*3;
+		player->pupil_x = centre_x + cos*3;
 	}
 
 }
