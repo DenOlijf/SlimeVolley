@@ -213,5 +213,49 @@ void GameSingle::MakeEntities()
 void GameSingle::DestroyEntities()
 {
 	// TODO: Remove and destroy all entities
+	//alle sprite componenten van de entities deleten
+	std::set<Entity*> sprites = engine.GetEntityStream()->WithTag(Component::SPRITE);
+	std::set<Entity*>::iterator it_sprites;
+	for (it_sprites = sprites.begin(); it_sprites != sprites.end(); it_sprites++) {
+		Entity* temp = *it_sprites;
+		delete(temp->Remove(temp->GetComponent(Component::SPRITE)));
+	}
 
+	//alle player componenten van de entities deleten
+	std::set<Entity*> players = engine.GetEntityStream()->WithTag(Component::PLAYER);
+	std::set<Entity*>::iterator it_players;
+	for (it_players = players.begin(); it_players != players.end(); it_players++) {
+		Entity* temp = *it_players;
+		delete(temp->Remove(temp->GetComponent(Component::PLAYER)));
+	}
+
+	//alle motion componenten van de entities deleten
+	std::set<Entity*> motions = engine.GetEntityStream()->WithTag(Component::MOTION);
+	std::set<Entity*>::iterator it_motions;
+	for (it_motions = motions.begin(); it_motions != motions.end(); it_motions++) {
+		Entity* temp = *it_motions;
+		delete(temp->Remove(temp->GetComponent(Component::MOTION)));
+	}
+
+	//alle point componenten van de entities deleten
+	std::set<Entity*> points = engine.GetEntityStream()->WithTag(Component::POINT);
+	std::set<Entity*>::iterator it_points;
+	for (it_points = points.begin(); it_points != points.end(); it_points++) {
+		Entity* temp = *it_points;
+		delete(temp->Remove(temp->GetComponent(Component::POINT)));
+	}
+
+	//alle ball componenten van de entities deleten
+	std::set<Entity*> ball = engine.GetEntityStream()->WithTag(Component::BALL);
+	std::set<Entity*>::iterator it_ball = ball.begin();
+	Entity* temp = *it_ball;
+	delete(temp->Remove(temp->GetComponent(Component::BALL)));
+
+	//de entities zelf deleten
+	std::vector<Entity*> entities = engine.GetEntities();
+	std::vector<Entity*>::iterator it;
+	for (it = entities.begin(); it != entities.end(); it++) {
+		engine.RemoveEntity(*it);
+		delete(*it);
+	}
 }
