@@ -48,8 +48,9 @@ void SystemCollision::HandleBallWallCollision()
 	if (cspr_ball->y > cspr_ball->y_max) {
 		cspr_ball->y = cspr_ball->y_max;
 	}
-	//moet niet checken of de bal de grond raakt, want dat wordt in system_state_multi gedaan
-
+	else if (cspr_ball->y < cspr_ball->y_min) {
+		cspr_ball->y = cspr_ball->y_min;
+	}
 }
 
 void SystemCollision::HandleBallNetCollision()

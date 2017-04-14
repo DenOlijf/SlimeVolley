@@ -4,7 +4,6 @@
 #include "component.h"
 #include "component_motion.h"
 #include "component_player.h"
-#include "component_point.h"
 #include "component_sprite.h"
 #include "engine.h"
 #include "game.h"
