@@ -72,6 +72,9 @@ void GameSingle::AddSystems()
 	sis = SystemInputSingle();
 	engine.AddSystem(&sis);
 
+	sai = SystemAI();
+	engine.AddSystem(&sai);
+
 	smot = SystemMotion();
 	engine.AddSystem(&smot);
 

@@ -47,7 +47,7 @@ void SystemInputSingle::Update()
 	else {
 		cmot_player_1->v_x = 0;
 	}
-	if (engine->GetContext()->GetKeyPressed(ALLEGRO_KEY_Z, true && cmot_player_1->v_y == 0)) {
+	if (engine->GetContext()->GetKeyPressed(ALLEGRO_KEY_Z, true) && cmot_player_1->v_y == 0) {
 		cmot_player_1->v_y = SLIME_V_Y;
 	}
 	else if (engine->GetContext()->GetKeyPressed(ALLEGRO_KEY_S, true)) {

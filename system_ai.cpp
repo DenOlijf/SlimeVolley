@@ -36,9 +36,8 @@ void SystemAI::Update()
 
 double SystemAI::XBallBelow(double y_target)
 {
-	// TODO: Calculate the value of x when y is first below y_target
-
-	return 0;
+	double time = (-cmot_ball->v_y - sqrt(cmot_ball->v_y*cmot_ball->v_y - 2 * y_target*cmot_ball->a_y)) / cmot_ball->a_y;
+	return cspr_ball->x + cmot_ball->v_x*time + 1 / 2 * cmot_ball->a_x*time*time;
 }
 
 void SystemAI::MoveLeft()
@@ -79,17 +78,34 @@ void SystemAI::UpdateKeys()
 	if (level == 1)
 	{
 		// If ball is on left side of the net, set state equal to -1
-		
+		if (cspr_ball->x < 375) {
+			state = -1;
+		}
 		// If state equals 0 or the ball is in serving position (v_x = 0, x == 600)
 		//    Set state equal to 0 and serve only if the ball drops below y = 110 by simply moving right and jump
 		//    Return
-		
+		if (state == 0 || (cmot_ball->v_x == 0 && cspr_ball->x == SLIME_2_INIT_X)) {
+			state = 0;
+			if (cspr_ball->y < 110) {
+				MoveRight();
+				Jump();
+			}
+			return;
+		}
 		// Calculate the x-value of the first position at which the ball drops below y = 90 (call this position P)
-
+		double P = XBallBelow(90.0);
 		// If P is on the left side of the net
 		//    Position the slime closer than distance 6 to x = 600 (i.e. use abs(x - 600) < 6) by moving left/right (otherwise just stop)
 		//    Return
-
+		if (P < 375) {
+			if (cspr_player_2->x < 595) 
+				MoveRight();
+			else if (cspr_player_2->x > 605) 
+				MoveLeft();
+			else 
+				Stop();
+			return;
+		}
 		// If the horizontal distance between P and the slime is less than 25, and the slime is on the ground
 		//    If Slime's x >= 675 and ball's x > 625
 		//        Jump
@@ -98,15 +114,34 @@ void SystemAI::UpdateKeys()
 		//    If Horizontal distance between ball and slime is less than 110 and ball's y > 25 and ball's y < 150
 		//        Jump
 		//    Return
-
+		if (abs(P - cspr_player_2->x) < 25 && cspr_player_2->y == cspr_player_2->y_min) {
+			if ((cspr_player_2->x >= 675 && cspr_ball->x > 625) 
+				|| (cspr_player_2->x <= 435 && cspr_ball->x < 395)
+				|| (abs(cspr_ball->x - cspr_player_2->x) < 110 && cspr_ball->y > 25 && cspr_ball->y < 150)) {
+				Jump();
+			}
+			return;
+		}
 		// Else if the slime is on the ground
 		//    Position it as close as possible to P (use abs limit 25 instead of 6)
-
+		else if (cspr_player_2->y == cspr_player_2->y_min) {
+			if (cspr_player_2->x <= P - 25) MoveRight();
+			else {
+				if (cspr_player_2->x >= P + 25) MoveLeft();
+				else Stop();
+			}
+		}
 		// Else if the slime's x >= 675
 		//    Move right
-
+		else if (cspr_player_2->x >= 675) MoveRight();
 		// Else
 		//     Position the slime as close as possible to the ball (use abs limit 25 instead of 6)
+		else {
+			if (cspr_player_2->x <= cspr_ball->x - 25) MoveRight();
+			else if (cspr_player_2->x >= cspr_ball->x + 25) MoveLeft();
+			else Stop();
+		}
+		return;
 	}
 	else if (level == 2)
 	{
@@ -163,12 +198,34 @@ void SystemAI::UpdateKeys()
 void SystemAI::UpdateMovement()
 {
 	// TODO: Change player's movement according to AI decisions (i.e. pressed_xxx)
-
+	if (pressed_up && cmot_player_2->v_y == 0) cmot_player_2->v_y = SLIME_V_Y;
+	if (pressed_left) cmot_player_2->v_x = -SLIME_V_X;
+	else if (pressed_right) cmot_player_2->v_x = SLIME_V_X;
 }
 
 bool SystemAI::Initialize()
 {
-	// TODO: Initialize all component pointers (optional)
+	std::set<Entity*> ents = engine->GetEntityStream()->WithTag(Component::MOTION);
+	std::set<Entity*>::iterator it;
+
+	for (it = ents.begin(); it != ents.end(); it++) {
+		Graphics::Sprite temp = ((ComponentSprite*)(*it)->GetComponent(Component::SPRITE))->sprite;
+		if (temp == Graphics::SPRITE_PLAYER1) {
+			cspr_player_1 = (ComponentSprite*)(*it)->GetComponent(Component::SPRITE);
+		}
+		else {
+			if (temp == Graphics::SPRITE_OPPONENT1 || temp == Graphics::SPRITE_OPPONENT2 || temp == Graphics::SPRITE_OPPONENT3) {
+				cspr_player_2 = (ComponentSprite*)(*it)->GetComponent(Component::SPRITE);
+				cmot_player_2 = (ComponentMotion*)(*it)->GetComponent(Component::MOTION);
+			}
+			else {
+				if (temp == Graphics::SPRITE_BALL) {
+					cspr_ball = (ComponentSprite*)(*it)->GetComponent(Component::SPRITE);
+					cmot_ball = (ComponentMotion*)(*it)->GetComponent(Component::MOTION);
+				}
+			}
+		}
+	}
 
 	return true;
 }
