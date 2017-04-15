@@ -43,14 +43,14 @@ void SystemInputMulti::Update()
 	}else {
 		cmot_player_1->v_x = 0;
 	}
-	if (engine->GetContext()->GetKeyPressed(ALLEGRO_KEY_Z, true && cmot_player_1->v_y==0)) {
+	if (engine->GetContext()->GetKeyPressed(ALLEGRO_KEY_Z, true ) && cmot_player_1->v_y == 0) {
 		cmot_player_1->v_y = SLIME_V_Y;
 	}
 	else if (engine->GetContext()->GetKeyPressed(ALLEGRO_KEY_S, true)) {
 		cmot_player_1->v_y = -5;
 	}
 	
-	if (engine->GetContext()->GetKeyPressed(ALLEGRO_KEY_UP, true)) {
+	if (engine->GetContext()->GetKeyPressed(ALLEGRO_KEY_UP, true) && cmot_player_2->v_y == 0) {
 		cmot_player_2->v_y = SLIME_V_Y;
 	}else if (engine->GetContext()->GetKeyPressed(ALLEGRO_KEY_DOWN, true)) {
 		cmot_player_2->v_y = -5;
