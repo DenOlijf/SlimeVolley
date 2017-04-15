@@ -16,19 +16,19 @@ void SystemInputSingle::Update()
 
 	// TODO: Change player's movement, pause and exit according to toggled
 	// keys in context
-	if (engine->GetContext()->GetKeyPressed(ALLEGRO_KEY_ENTER, true)) {
+	if (engine->GetContext()->GetKeyPressed(ALLEGRO_KEY_P, true)) {
 		engine->GetContext()->SwitchPaused();
 	}
 	else if (engine->GetContext()->GetKeyPressed(ALLEGRO_KEY_ESCAPE, true)) {
-		engine->GetContext()->SetState(2);
+		engine->GetContext()->Reset(STOP_SINGLE, true);
 	}
 	//indien spel gedaan: wachten op input
-	else if (engine->GetContext()->GetState() == PLAYER_LEFT_WINS || engine->GetContext()->GetState() == PLAYER_RIGHT_WINS) {
+	else if (engine->GetContext()->GetState() == LEVEL_WON || engine->GetContext()->GetState() == LEVEL_LOST) {
 		if (engine->GetContext()->GetKeyPressed(ALLEGRO_KEY_SPACE, true)) {
-			engine->GetContext()->Reset(0, false);
+			engine->GetContext()->Reset(CONTINUE_AFTER_WIN, false);
 		}
 		else if (engine->GetContext()->GetKeyPressed(ALLEGRO_KEY_ESCAPE, true)) {
-			engine->GetContext()->SetState(2);
+			engine->GetContext()->Reset(STOP_SINGLE, true);
 		}
 	}
 

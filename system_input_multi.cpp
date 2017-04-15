@@ -20,7 +20,7 @@ void SystemInputMulti::Update()
 	// TODO: Change players' movement, pause and exit according to toggled
 	// keys in context
 
-	if (engine->GetContext()->GetKeyPressed(ALLEGRO_KEY_ENTER, true)) {
+	if (engine->GetContext()->GetKeyPressed(ALLEGRO_KEY_P, true)) {
 		engine->GetContext()->SwitchPaused();
 	}
 	else if (engine->GetContext()->GetKeyPressed(ALLEGRO_KEY_ESCAPE, true)) {

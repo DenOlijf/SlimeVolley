@@ -49,38 +49,85 @@ void SystemRender::Update()
 		Graphics::Instance().DrawBitmap(Graphics::SPRITE_PUPIL, player->pupil_x, Y_MAX - player->pupil_y, 5, 5);
 	}
 
-	Color c(0, 0, 0);
+	Color c;
 
 	// TODO: Use an appropriate color for the different backgrounds
-	/*if (engine->GetContext()->GetLevel() == ...)
+	if (engine->GetContext()->GetLevel() == 0 || engine->GetContext()->GetLevel() == 1)
 	{
-		c = Color(..., ..., ...);
-	}*/
+		c = Color(0, 0, 0);
+	}
+	else if (engine->GetContext()->GetLevel() == 2) {
+		c = Color(255, 255, 255);
+	}
+	else if (engine->GetContext()->GetLevel() == 3) {
+		c = Color(0, 191, 255);
+	}
 
 	// TODO: Print the current score if it is a singleplayer game
+	int level = engine->GetContext()->GetLevel();
+	if (level != 0) {
+		Graphics::Instance().DrawString(std::to_string(engine->GetContext()->GetScore()), 375,Y_MAX - 290, c, Graphics::ALIGN_CENTER);
+	}
 
 	// TODO: Print the correct instructions at the bottom of the screen,
 	// depending on whether there's a regular game or a replay
-
 	int state = engine->GetContext()->GetState();
-	int level = engine->GetContext()->GetLevel();
+	if (state == 0) {
+		Graphics::Instance().DrawString("Press P to pause, press ESC to quit without saving", 375, Y_MAX - (-30), c, Graphics::ALIGN_CENTER);
+	}
 
 	// TODO: Print an appropriate message if state != 0, depending on state
 	// and current level (1-3 for singleplayer, 0 for multiplayer)
+	if (level == 0) {
+		if (state == PLAYER_LEFT_SCORES) {
+			Graphics::Instance().DrawString("Player 1 scores!", 375, Y_MAX - (-30), c, Graphics::ALIGN_CENTER);
+		}
+		else if (state == PLAYER_RIGHT_SCORES) {
+			Graphics::Instance().DrawString("Player 2 scores!", 375, Y_MAX - (-30), c, Graphics::ALIGN_CENTER);
+		}
+		else if (state == PLAYER_LEFT_WINS) {
+			Graphics::Instance().DrawString("Player 1 wins!", 375, Y_MAX - 150, c, Graphics::ALIGN_CENTER);
+			Graphics::Instance().DrawString("Press SPACE to play again, press ESC to go back to menu", 375, Y_MAX - 120, c, Graphics::ALIGN_CENTER);
+		}
+		else if (state == PLAYER_RIGHT_WINS) {
+			Graphics::Instance().DrawString("Player 2 wins!!", 375, Y_MAX - 150, c, Graphics::ALIGN_CENTER);
+			Graphics::Instance().DrawString("Press SPACE to play again, press ESC to go back to menu", 375, Y_MAX - 120, c, Graphics::ALIGN_CENTER);
+		}
+	}
+	else if (level == 1) {
+		if (state == PLAYER_LEFT_SCORES) {
+			Graphics::Instance().DrawString("You scored!", 375, Y_MAX - (-30), c, Graphics::ALIGN_CENTER);
+		}
+		else if (state == PLAYER_RIGHT_SCORES) {
+			Graphics::Instance().DrawString("Noob!", 375, Y_MAX - (-30), c, Graphics::ALIGN_CENTER);
+		}
+		else if (state == LEVEL_WON) {
+			Graphics::Instance().DrawString("The slime novice needs more practice to beat you!", 375, Y_MAX - 150, c, Graphics::ALIGN_CENTER);
+			Graphics::Instance().DrawString("Press space to continue or esc to quit without saving", 375, Y_MAX - 120, c, Graphics::ALIGN_CENTER);
+		}
+		else if (state == LEVEL_LOST) {
+			Graphics::Instance().DrawString("Anyone can deal with victory. Only the mighty can bear defeat.", 375, Y_MAX - 150, c, Graphics::ALIGN_CENTER);
+			Graphics::Instance().DrawString("Press SPACE to play again, press ESC to go back to menu", 375, Y_MAX - 120, c, Graphics::ALIGN_CENTER);
+		}
+	}
+	else if (level == 2) {
+		if (state == PLAYER_LEFT_SCORES) {
+			Graphics::Instance().DrawString("You scored!", 375, Y_MAX - (-30), c, Graphics::ALIGN_CENTER);
+		}
+		else if (state == PLAYER_RIGHT_SCORES) {
+			Graphics::Instance().DrawString("Noob!", 375, Y_MAX - (-30), c, Graphics::ALIGN_CENTER);
+		}
+		else if (state == LEVEL_WON && level == 2) {
+			Graphics::Instance().DrawString("The slime expert clearly was no match for you!", 375, Y_MAX - 150, c, Graphics::ALIGN_CENTER);
+			Graphics::Instance().DrawString("Press space to continue or esc to quit without saving", 375, Y_MAX - 120, c, Graphics::ALIGN_CENTER);
+		}
+		else if (state == LEVEL_LOST) {
+			Graphics::Instance().DrawString("Anyone can deal with victory. Only the mighty can bear defeat.", 375, Y_MAX - 150, c, Graphics::ALIGN_CENTER);
+			Graphics::Instance().DrawString("Press SPACE to play again, press ESC to go back to menu", 375, Y_MAX - 120, c, Graphics::ALIGN_CENTER);
+		}
+	}
+	else if (level == 3) {
 
-	if (state == PLAYER_LEFT_SCORES) {
-		Graphics::Instance().DrawString("Player 1 scores!", 375, Y_MAX - (-30), c, Graphics::ALIGN_CENTER);
-	}
-	else if (state == PLAYER_RIGHT_SCORES) {
-		Graphics::Instance().DrawString("Player 2 scores!", 375, Y_MAX - (-30), c, Graphics::ALIGN_CENTER);
-	}
-	else if (state == PLAYER_LEFT_WINS) {
-		Graphics::Instance().DrawString("Player 1 wins!", 375, Y_MAX - (-20), c, Graphics::ALIGN_CENTER);
-		Graphics::Instance().DrawString("Press SPACE to play again, press ESC to go back to menu", 375, Y_MAX - (-50),c,Graphics::ALIGN_CENTER);
-	}
-	else if (state == PLAYER_RIGHT_WINS) {
-		Graphics::Instance().DrawString("Player 2 wins!!", 375, Y_MAX - (-20), c, Graphics::ALIGN_CENTER);
-		Graphics::Instance().DrawString("Press SPACE to play again, press ESC to go back to menu", 375, Y_MAX - (-50), c, Graphics::ALIGN_CENTER);
 	}
 
 	// Update current frame rate

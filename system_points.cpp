@@ -16,7 +16,6 @@ void SystemPoints::Update()
 	//punten aanpassen van sprite indien nodig
 	for (it = entities.begin(); it != entities.end(); it++) {
 		Entity* temp = *it;
-		//ComponentPoint* pointcomp = (ComponentPoint*)temp->GetComponent(Component::POINT);
 		int player = ((ComponentPoint*)temp->GetComponent(Component::POINT))->player_id;
 		int point = ((ComponentPoint*)temp->GetComponent(Component::POINT))->point_id;
 		if (player == 1) {
@@ -32,7 +31,15 @@ void SystemPoints::Update()
 		else if (player == 2) {
 			if (point <= engine->GetContext()->GetPoints(2) && point != 0) {
 				delete(temp->Remove(temp->GetComponent(Component::SPRITE)));
-				temp->Add(new ComponentSprite(Graphics::SPRITE_POINT_P2, X_MAX - 30 - (point - 1) * 40, 0, 0, BALL_X_OFFSET, 290, 0, 0, 0));
+				if (engine->GetContext()->GetLevel() == 0 || engine->GetContext()->GetLevel() == 1) {
+					temp->Add(new ComponentSprite(Graphics::SPRITE_POINT_P2, X_MAX - 30 - (point - 1) * 40, 0, 0, BALL_X_OFFSET, 290, 0, 0, 0));
+				}
+				else if (engine->GetContext()->GetLevel() == 2) {
+					temp->Add(new ComponentSprite(Graphics::SPRITE_POINT_O2, X_MAX - 30 - (point - 1) * 40, 0, 0, BALL_X_OFFSET, 290, 0, 0, 0));
+				}
+				else {
+					temp->Add(new ComponentSprite(Graphics::SPRITE_POINT_O3, X_MAX - 30 - (point - 1) * 40, 0, 0, BALL_X_OFFSET, 290, 0, 0, 0));
+				}
 			}
 			else {
 				delete(temp->Remove(temp->GetComponent(Component::SPRITE)));
