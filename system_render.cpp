@@ -50,17 +50,21 @@ void SystemRender::Update()
 	}
 
 	Color c;
+	Color black = Color(0, 0, 0);
+	Color white = Color(255, 255, 255);
+	Color mustard = Color(227, 190, 66);
+	Color olive = Color(85, 107, 47);
 
 	// TODO: Use an appropriate color for the different backgrounds
 	if (engine->GetContext()->GetLevel() == 0 || engine->GetContext()->GetLevel() == 1)
 	{
-		c = Color(0, 0, 0);
+		c = black;
 	}
 	else if (engine->GetContext()->GetLevel() == 2) {
-		c = Color(255, 255, 255);
+		c = white;
 	}
 	else if (engine->GetContext()->GetLevel() == 3) {
-		c = Color(0, 191, 255);
+		c = black;
 	}
 
 	// TODO: Print the current score if it is a singleplayer game
@@ -117,7 +121,7 @@ void SystemRender::Update()
 		else if (state == PLAYER_RIGHT_SCORES) {
 			Graphics::Instance().DrawString("Noob!", 375, Y_MAX - (-30), c, Graphics::ALIGN_CENTER);
 		}
-		else if (state == LEVEL_WON && level == 2) {
+		else if (state == LEVEL_WON) {
 			Graphics::Instance().DrawString("The slime expert clearly was no match for you!", 375, Y_MAX - 150, c, Graphics::ALIGN_CENTER);
 			Graphics::Instance().DrawString("Press space to continue or esc to quit without saving", 375, Y_MAX - 120, c, Graphics::ALIGN_CENTER);
 		}
@@ -127,7 +131,20 @@ void SystemRender::Update()
 		}
 	}
 	else if (level == 3) {
-
+		if (state == PLAYER_LEFT_SCORES) {
+			Graphics::Instance().DrawString("You scored!", 375, Y_MAX - (-30), c, Graphics::ALIGN_CENTER);
+		}
+		else if (state == PLAYER_RIGHT_SCORES) {
+			Graphics::Instance().DrawString("Noob!", 375, Y_MAX - (-30), c, Graphics::ALIGN_CENTER);
+		}
+		else if (state == LEVEL_WON) {
+			Graphics::Instance().DrawString("You're too good at this, get a life...", 375, Y_MAX - 150, c, Graphics::ALIGN_CENTER);
+			Graphics::Instance().DrawString("Press space to continue or esc to quit without saving", 375, Y_MAX - 120, c, Graphics::ALIGN_CENTER);
+		}
+		else if (state == LEVEL_LOST) {
+			Graphics::Instance().DrawString("Anyone can deal with victory. Only the mighty can bear defeat.", 375, Y_MAX - 150, c, Graphics::ALIGN_CENTER);
+			Graphics::Instance().DrawString("Press SPACE to play again, press ESC to go back to menu", 375, Y_MAX - 120, c, Graphics::ALIGN_CENTER);
+		}
 	}
 
 	// Update current frame rate

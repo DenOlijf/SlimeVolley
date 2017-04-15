@@ -25,7 +25,12 @@ void SystemInputSingle::Update()
 	//indien spel gedaan: wachten op input
 	else if (engine->GetContext()->GetState() == LEVEL_WON || engine->GetContext()->GetState() == LEVEL_LOST) {
 		if (engine->GetContext()->GetKeyPressed(ALLEGRO_KEY_SPACE, true)) {
-			engine->GetContext()->Reset(CONTINUE_AFTER_WIN, false);
+			if (engine->GetContext()->GetLevel() != 3) {
+				engine->GetContext()->Reset(CONTINUE_AFTER_WIN, false);
+			}
+			else {
+				engine->GetContext()->Reset(REPLAY_SINGLE, true);
+			}
 		}
 		else if (engine->GetContext()->GetKeyPressed(ALLEGRO_KEY_ESCAPE, true)) {
 			engine->GetContext()->Reset(STOP_SINGLE, true);

@@ -121,10 +121,10 @@ void GameSingle::MakeEntities()
 	engine.AddEntity(player1);
 
 	Entity* ai = new Entity();
-	if (engine.GetContext()->GetLevel() == 1) {
+	if (level == 1) {
 		ai->Add(new ComponentSprite(Graphics::SPRITE_OPPONENT1, SLIME_2_INIT_X, 377 /* einde net */ + SLIME_X_OFFSET, X_MAX - SLIME_X_OFFSET, SLIME_X_OFFSET, 0, 0, Y_MAX + SLIME_Y_OFFSET, SLIME_Y_OFFSET));
 	}
-	else if (engine.GetContext()->GetLevel() == 2) {
+	else if (level == 2) {
 		ai->Add(new ComponentSprite(Graphics::SPRITE_OPPONENT2, SLIME_2_INIT_X, 377 /* einde net */ + SLIME_X_OFFSET, X_MAX - SLIME_X_OFFSET, SLIME_X_OFFSET, 0, 0, Y_MAX + SLIME_Y_OFFSET, SLIME_Y_OFFSET));
 	}
 	else {

@@ -24,7 +24,7 @@ void SystemInputMulti::Update()
 		engine->GetContext()->SwitchPaused();
 	}
 	else if (engine->GetContext()->GetKeyPressed(ALLEGRO_KEY_ESCAPE, true)) {
-		engine->GetContext()->SetState(2);
+		engine->GetContext()->Reset(2, false);
 	}
 	//indien spel gedaan: wachten op input
 	else if (engine->GetContext()->GetState() == PLAYER_LEFT_WINS || engine->GetContext()->GetState() == PLAYER_RIGHT_WINS) {
@@ -32,7 +32,7 @@ void SystemInputMulti::Update()
 			engine->GetContext()->Reset(0, false);
 		}
 		else if (engine->GetContext()->GetKeyPressed(ALLEGRO_KEY_ESCAPE, true)) {
-			engine->GetContext()->SetState(2);
+			engine->GetContext()->Reset(2, false);
 		}
 	}
 

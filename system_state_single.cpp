@@ -52,10 +52,12 @@ void SystemStateSingle::Update()
 					if (cspr_ball->x < 375 - BALL_X_OFFSET) {
 						engine->GetContext()->IncreasePoints(2);
 						engine->GetContext()->SetState(PLAYER_RIGHT_SCORES);
+						engine->GetContext()->UpdateScore(-100);
 					}
 					else {
 						engine->GetContext()->IncreasePoints(1);
 						engine->GetContext()->SetState(PLAYER_LEFT_SCORES);
+						engine->GetContext()->UpdateScore(200);
 					}
 				}
 			}
