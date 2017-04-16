@@ -99,6 +99,7 @@ void GameSingle::RemoveSystems()
 {
 	// TODO: Remove all systems from the engine
 	engine.RemoveSystem(&sis);
+	engine.RemoveSystem(&sai);
 	engine.RemoveSystem(&smot);
 	engine.RemoveSystem(&scoll);
 	engine.RemoveSystem(&seyes);

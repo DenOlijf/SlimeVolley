@@ -74,7 +74,6 @@ void SystemAI::UpdateKeys()
 	int level = engine->GetContext()->GetLevel();
 
 	// TODO: Implement game logic for different levels
-
 	if (level == 1)
 	{
 		// If ball is on left side of the net, set state equal to -1
@@ -98,12 +97,17 @@ void SystemAI::UpdateKeys()
 		//    Position the slime closer than distance 6 to x = 600 (i.e. use abs(x - 600) < 6) by moving left/right (otherwise just stop)
 		//    Return
 		if (P < 375) {
-			if (cspr_player_2->x < 595) 
-				MoveRight();
-			else if (cspr_player_2->x > 605) 
-				MoveLeft();
-			else 
+			if (abs(cspr_player_2->x - P) > 6) {
+				if (cspr_player_2->x < 595) {
+					MoveRight();
+				}
+				else if (cspr_player_2->x > 605) {
+					MoveLeft();
+				}
+			}
+			else {
 				Stop();
+			}
 			return;
 		}
 		// If the horizontal distance between P and the slime is less than 25, and the slime is on the ground
@@ -146,6 +150,9 @@ void SystemAI::UpdateKeys()
 	else if (level == 2)
 	{
 		// If ball is on left side of the net, set state equal to -1
+		if (cspr_ball->x < 375) {
+			state = -1;
+		}
 
 		// If state does not equal -1 or the ball is in serving position (v_x = 0, x == 600)
 		//    If state equals -1
@@ -164,13 +171,67 @@ void SystemAI::UpdateKeys()
 		//        If the ball's vertical speeds is lower than -4.5 and the slime is mid-air and slime's x >= 633
 		//            Move left
 		//    Return
+		if (state != -1 || (cmot_player_2->v_x == 0 && cspr_player_2->x == 600)) {
+			if (state == -1) {
+				float random = GetRandom();
+				if (random < 0.33) {
+					state = 0;
+				}
+				else if (random < 0.66) {
+					state = 1;
+				}
+				else {
+					state = 2;
+				}
+			}
+			else if (state == 0) {
+				if (cspr_ball->y < 75) {
+					MoveRight();
+					Jump();
+				}
+			}
+			else if (state == 1) {
+				if (cspr_ball->y < 75) {
+					MoveLeft();
+					Jump();
+				}
+			}
+			else if (state == 2) {
+				if (cmot_ball->v_y > 4.5 && cspr_player_2->x < 645) {
+					MoveRight();
+				}
+				if (cspr_player_2->x >= 645) {
+					Stop();
+				}
+				if (cmot_ball->v_y == -1.125 && cspr_player_2->x != 600) {
+					Jump();
+				}
+				if (cmot_ball->v_y < -4.5 && cspr_player_2->y>0 && cspr_player_2->x >= 633) {
+					MoveLeft();
+				}
+			}
+		}
+
 
 		// Calculate the x-value of the first position at which the ball drops below y = 90 (call this position P)
-
+		double P = XBallBelow(90.0);
 		// If P is on the left side of the net
 		//    Position the slime closer than distance 6 to x = 480 (i.e. use abs(x - 480) < 6) by moving left/right (otherwise just stop)
 		//    Return
-
+		if (P < 375) {
+			if (abs(cspr_player_2->x - 480) > 6) {
+				if (cspr_player_2->x - 480 > 0) {
+					MoveLeft();
+				}
+				else {
+					MoveRight();
+				}
+			}
+			else {
+				Stop();
+			}
+			return;
+		}
 		// If the horizontal distance between P and the slime is less than 25, and the slime is on the ground
 		//    If Slime's x >= 675 and ball's x > 625
 		//        Jump
@@ -179,15 +240,56 @@ void SystemAI::UpdateKeys()
 		//    If Horizontal distance between ball and slime is less than 110 and ball's y > 25 and ball's y < 150 and random value < 0.5
 		//        Jump
 		//    Return
+		if (abs(P - cspr_player_2->x) < 25 && cspr_player_2->y == cspr_player_2->y_min) {
+			if (cspr_player_2->x >= 675 && cspr_ball->x > 625) {
+				Jump();
+			}
+			if (cspr_player_2->x <= 435 && cspr_ball->x < 395 && abs(cspr_ball->x - cspr_player_2->x) < 75) {
+				Jump();
+			}
+			if (abs(cspr_player_2->x - cspr_ball->x) < 110 && cspr_ball->y > 25 && cspr_ball->y < 150 && GetRandom()<0.5) {
+				Jump();
+			}
+			return;
+		}
 
 		// Else if the slime is on the ground
 		//    Position it as close as possible to P (use abs limit 25 instead of 6)
+		else if (cspr_player_2->y == cspr_player_2->y_min) {
+			if (abs(cspr_player_2->x - P) > 25) {
+				if (cspr_player_2->x - P > 0) {
+					MoveLeft();
+				}
+				else {
+					MoveRight();
+				}
+			}
+			else {
+				Stop();
+			}
+		}
 
 		// Else if the slime's x >= 675
 		//    Move right
+		else if (cspr_player_2->x >= 675) {
+			MoveRight();
+		}
 
 		// Else
 		//     Position the slime as close as possible to the ball (use abs limit 25 instead of 6)
+		else {
+			if (abs(cspr_player_2->x - cspr_ball->x) > 25) {
+				if (cspr_player_2->x - cspr_ball->x > 0) {
+					MoveLeft();
+				}
+				else {
+					MoveRight();
+				}
+			}
+			else {
+				Stop();
+			}
+		}
 	}
 	else if (level == 3)
 	{
