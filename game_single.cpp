@@ -89,6 +89,9 @@ void GameSingle::AddSystems()
 
 	sp = SystemPoints();
 	engine.AddSystem(&sp);
+
+	so = SystemOutput();
+	engine.AddSystem(&so);
 	
 	sr = SystemRender();
 	engine.AddSystem(&sr);
@@ -105,6 +108,7 @@ void GameSingle::RemoveSystems()
 	engine.RemoveSystem(&seyes);
 	engine.RemoveSystem(&sss);
 	engine.RemoveSystem(&sp);
+	engine.RemoveSystem(&so);
 	engine.RemoveSystem(&sr);
 
 }
