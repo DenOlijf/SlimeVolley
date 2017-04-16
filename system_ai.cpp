@@ -97,12 +97,17 @@ void SystemAI::UpdateKeys()
 		//    Position the slime closer than distance 6 to x = 600 (i.e. use abs(x - 600) < 6) by moving left/right (otherwise just stop)
 		//    Return
 		if (P < 375) {
-			if (cspr_player_2->x < 595) 
-				MoveRight();
-			else if (cspr_player_2->x > 605) 
-				MoveLeft();
-			else 
+			if (abs(cspr_player_2->x - P) > 6) {
+				if (cspr_player_2->x < 595) {
+					MoveRight();
+				}
+				else if (cspr_player_2->x > 605) {
+					MoveLeft();
+				}
+			}
+			else {
 				Stop();
+			}
 			return;
 		}
 		// If the horizontal distance between P and the slime is less than 25, and the slime is on the ground
