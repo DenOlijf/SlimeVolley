@@ -200,7 +200,6 @@ void Game::StartSingleplayer()
 	// Iterate over all levels
 	for (int i = 1; i <= 3; i++)
 	{
-		context->SetLevel(i);
 
 		// Initialize game
 		GameSingle game(context, i);
