@@ -35,20 +35,16 @@ void SystemOutput::Update()
 	if (engine->GetContext()->GetState() > 0)
 	{
 		// TODO: Output coordinates to file
-		char buffer[1];
-		_itoa(level, buffer, 10);
-		string s = "assets/highscores/";
-		s.append(std::to_string(start_time));
-		s.append("_");
-		s.append(buffer);
-		s.append(".txt");
+		start_time = engine->GetContext()->GetStartTime();
+		level = engine->GetContext()->GetLevel();
 		ofstream highscores;
-		highscores.open(s, ios::out);
+		highscores.open("assets/highscores/" + std::to_string(start_time) + "_" + std::to_string(level) + ".txt", ios::out);
 		std::list<coordinates>::iterator it;
 		for (it = cs.begin(); it != cs.end(); it++) {
 			coordinates temp = *it;
 			highscores << temp.x_player_1 << " " << temp.y_player_1 << " " << temp.x_player_2 << " " << temp.y_player_2 << " " << temp.x_ball << " " << temp.y_ball  << endl;
 		}
+		highscores.close();
 	}
 }
 
@@ -64,7 +60,7 @@ bool SystemOutput::Initialize()
 			cspr_player_1 = (ComponentSprite*)(*it)->GetComponent(Component::SPRITE);
 		}
 		else {
-			if (temp == Graphics::SPRITE_OPPONENT1 || temp == Graphics::SPRITE_OPPONENT2 || temp == Graphics::SPRITE_OPPONENT3) {
+			if (temp == Graphics::SPRITE_PLAYER2 || temp == Graphics::SPRITE_OPPONENT1 || temp == Graphics::SPRITE_OPPONENT2 || temp == Graphics::SPRITE_OPPONENT3) {
 				cspr_player_2 = (ComponentSprite*)(*it)->GetComponent(Component::SPRITE);
 			}
 			else {
