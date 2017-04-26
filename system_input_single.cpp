@@ -20,7 +20,7 @@ void SystemInputSingle::Update()
 		engine->GetContext()->SwitchPaused();
 	}
 	else if (engine->GetContext()->GetKeyPressed(ALLEGRO_KEY_ESCAPE, true)) {
-		engine->GetContext()->Reset(STOP_SINGLE, true);
+		engine->GetContext()->Reset(STOP_SINGLE, false);
 	}
 	//indien spel gedaan: wachten op input
 	else if (engine->GetContext()->GetState() == LEVEL_WON || engine->GetContext()->GetState() == LEVEL_LOST) {
@@ -33,7 +33,7 @@ void SystemInputSingle::Update()
 			}
 		}
 		else if (engine->GetContext()->GetKeyPressed(ALLEGRO_KEY_ESCAPE, true)) {
-			engine->GetContext()->Reset(STOP_SINGLE, true);
+			engine->GetContext()->Reset(STOP_SINGLE, false);
 		}
 	}
 

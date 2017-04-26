@@ -61,18 +61,18 @@ void SystemReplay::GoToNextFrame()
 	//   2 if there are no coordinates left
 	// and update the context whenever necessary
 	if (cs.size() > 0) {
-		if (cs.begin()->y_ball >= BALL_X_OFFSET) {
+		if (cs.begin()->y_ball > BALL_X_OFFSET) {
 			status = 0;
 		}
 		else {
 			status = 1;
 			if (cs.begin()->x_ball < 375 - BALL_X_OFFSET) {
-				engine->GetContext()->SetState(PLAYER_LEFT_SCORES);
-				engine->GetContext()->IncreasePoints(1);
-			}
-			else {
 				engine->GetContext()->SetState(PLAYER_RIGHT_SCORES);
 				engine->GetContext()->IncreasePoints(2);
+			}
+			else {
+				engine->GetContext()->SetState(PLAYER_LEFT_SCORES);
+				engine->GetContext()->IncreasePoints(1);
 			}
 		}
 		cspr_player_1->x = cs.begin()->x_player_1;
@@ -81,6 +81,7 @@ void SystemReplay::GoToNextFrame()
 		cspr_player_2->y = cs.begin()->y_player_2;
 		cspr_ball->x = cs.begin()->x_ball;
 		cspr_ball->y = cs.begin()->y_ball;
+		cs.pop_front();
 	}
 	else {
 		status = 2;
@@ -116,11 +117,11 @@ bool SystemReplay::Initialize()
 	double coords [6];
 	double temp = 0;
 	while (input >> temp) {
-		index++;
-		index = index % 6;
 		coords[index] = temp;
 		if (index == 5)
 			cs.push_back({ coords[0], coords[1], coords[2], coords[3], coords[4], coords[5] });
+		index++;
+		index = index % 6;
 	}
 	/*std::string s;
 	while (getline(input,s)) {
