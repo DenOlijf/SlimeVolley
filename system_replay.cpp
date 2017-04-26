@@ -32,9 +32,9 @@ void SystemReplay::Update()
 	//	 [P] Pause playout
 	//	 [ESC] Return to menu
 	if (engine->GetContext()->GetKeyPressed(ALLEGRO_KEY_LEFT, true))
-		speed /= 2;
+		speed = std::max(0.5,speed/2);
 	else if (engine->GetContext()->GetKeyPressed(ALLEGRO_KEY_RIGHT, true))
-		speed *= 2;
+		speed = std::min(4.0,speed*2);
 	if (engine->GetContext()->GetKeyPressed(ALLEGRO_KEY_UP, true))
 		GoToNextPoint();
 	if (engine->GetContext()->GetKeyPressed(ALLEGRO_KEY_DOWN, true))
@@ -48,7 +48,14 @@ void SystemReplay::Update()
 	{
 		// TODO: Go to the next frame(s), if necessary
 		if (status != 2) {
-			GoToNextFrame();
+			double wacht_tijd = 1 / (FPS*speed);
+			for (int i = 0; i < std::round(speed); i++) {
+				telTijd += 1 / FPS;
+			}
+			if (telTijd >= wacht_tijd) {
+				GoToNextFrame();
+				telTijd = 0;
+			}
 		}
 	}
 }
@@ -85,10 +92,7 @@ void SystemReplay::GoToNextFrame()
 	}
 	else {
 		status = 2;
-		if (engine->GetContext()->GetPoints(1) == 7)
-			engine->GetContext()->SetState(PLAYER_LEFT_WINS);
-		else if (engine->GetContext()->GetPoints(2) == 7)
-			engine->GetContext()->SetState(PLAYER_RIGHT_WINS);
+		engine->GetContext()->Reset(NEXT_LEVEL, true);
 	}
 }
 
@@ -123,38 +127,6 @@ bool SystemReplay::Initialize()
 		index++;
 		index = index % 6;
 	}
-	/*std::string s;
-	while (getline(input,s)) {
-		std::string xp1;
-		std::string yp1;
-		std::string xp2;
-		std::string yp2;
-		std::string xb;
-		std::string yb;
-		int select = 1;
-		for (unsigned int i = 0; i < s.length(); i++) {
-			char temp = s[i];
-			if (temp == ' ')
-				select++;
-			else if (temp != '\n') {
-				switch (select) {
-				case 1:
-					xp1 += temp;
-				case 2:
-					yp1 += temp;
-				case 3:
-					xp2 += temp;
-				case 4:
-					yp2 += temp;
-				case 5:
-					xb += temp;
-				case 6:
-					yb += temp;
-				}
-			}
-		}
-		
-	}*/
 	input.close();
 	// TODO: Initialize all component pointers (optional)
 	std::set<Entity*> ents = engine->GetEntityStream()->WithTag(Component::MOTION);

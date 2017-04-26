@@ -38,7 +38,8 @@
 
 #define REPLAY_MIN 0.5
 #define REPLAY_MAX 4
-#define STOP_REPLAY 1
+#define STOP_REPLAY 2
+#define NEXT_LEVEL 1
 
 #define LEVEL_WON -1
 #define LEVEL_LOST -2

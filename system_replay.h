@@ -8,7 +8,7 @@
 class SystemReplay : public System
 {
 public:
-	SystemReplay() : System(), initialized(false), speed(1), status(-1)
+	SystemReplay() : System(), initialized(false), speed(1), status(-1), telTijd(0)
 	{
 		srand((unsigned int)time(NULL));
 	};
@@ -40,6 +40,8 @@ private:
 	void GoToNextFrame();
 	void GoToNextPoint();
 	void GoToNextLevel();
+
+	double telTijd;
 
 	bool initialized;
 	double speed;
