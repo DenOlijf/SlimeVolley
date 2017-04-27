@@ -2,7 +2,6 @@
 
 #include <fstream>
 #include <list>
-#include <string>
 
 #include "component_player.h"
 #include "component_sprite.h"

@@ -72,6 +72,7 @@ float SystemAI::GetRandom()
 void SystemAI::UpdateKeys()
 {
 	int level = engine->GetContext()->GetLevel();
+	Stop();
 	// TODO: Implement game logic for different levels
 	if (level == 1)
 	{
@@ -155,6 +156,7 @@ void SystemAI::UpdateKeys()
 	}
 	else if (level == 2)
 	{
+		Stop();
 		// If ball is on left side of the net, set state equal to -1
 		if (cspr_ball->x < 375) {
 			state = -1;
@@ -177,7 +179,7 @@ void SystemAI::UpdateKeys()
 		//        If the ball's vertical speeds is lower than -4.5 and the slime is mid-air and slime's x >= 633
 		//            Move left
 		//    Return
-		if (state != -1 || (cmot_player_2->v_x == 0 && cspr_player_2->x == 600)) {
+		if (state != -1 || (cmot_ball->v_x == 0 && cspr_ball->x == 600)) {
 			if (state == -1) {
 				float random = GetRandom();
 				if (random < 0.33) {
@@ -216,6 +218,7 @@ void SystemAI::UpdateKeys()
 					MoveLeft();
 				}
 			}
+			return;
 		}
 
 
@@ -296,6 +299,7 @@ void SystemAI::UpdateKeys()
 				Stop();
 			}
 		}
+		return;
 	}
 	else if (level == 3)
 	{
@@ -306,6 +310,7 @@ void SystemAI::UpdateKeys()
 void SystemAI::UpdateMovement()
 {
 	// TODO: Change player's movement according to AI decisions (i.e. pressed_xxx)
+	cmot_player_2->v_x = 0;
 	if (pressed_up && cmot_player_2->v_y == 0) cmot_player_2->v_y = SLIME_V_Y;
 	if (pressed_left) cmot_player_2->v_x = -SLIME_V_X;
 	else if (pressed_right) cmot_player_2->v_x = SLIME_V_X;
