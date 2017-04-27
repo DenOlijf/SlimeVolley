@@ -303,7 +303,29 @@ void SystemAI::UpdateKeys()
 	}
 	else if (level == 3)
 	{
+		Stop();
+		if (cspr_ball->x >= 675 && cmot_ball->v_x > 0) {
+			MoveRight();
+			return;
+		}
+		if (cmot_ball->v_x == 0 && cspr_ball->x == SLIME_2_INIT_X && cspr_ball->y < 110) {
+				MoveRight();
+				Jump();
+				return;
+		}
+		double get_here = XBallBelow(cspr_ball->y);
+		if (abs(cspr_ball->x - cspr_player_2->x) < 50 && cspr_ball->y < 110 && abs(cspr_player_2->x - get_here) < 130) {
+			if (cmot_ball->v_x > 0) MoveLeft();
+			else MoveRight();
+			Jump();
+			return;
+		}
+		if (abs(get_here - cspr_player_2->x) > 400 || get_here > 300) {
+			if (cspr_player_2->x < get_here) MoveRight();
+			else if (cspr_player_2->x > get_here) MoveLeft();
+		}
 		
+		return;
 	}
 }
 
