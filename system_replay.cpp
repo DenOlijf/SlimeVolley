@@ -70,6 +70,10 @@ void SystemReplay::GoToNextFrame()
 	if (cs.size() > 0) {
 		if (cs.begin()->y_ball > BALL_X_OFFSET) {
 			status = 0;
+			if (speed >= 2.0) {
+				cs.pop_front();
+				if (cs.size() > 0 && cs.begin()->y_ball > BALL_X_OFFSET && speed == 4.0) cs.pop_front();
+			}
 		}
 		else {
 			status = 1;
@@ -82,13 +86,15 @@ void SystemReplay::GoToNextFrame()
 				engine->GetContext()->IncreasePoints(1);
 			}
 		}
-		cspr_player_1->x = cs.begin()->x_player_1;
-		cspr_player_1->y = cs.begin()->y_player_1;
-		cspr_player_2->x = cs.begin()->x_player_2;
-		cspr_player_2->y = cs.begin()->y_player_2;
-		cspr_ball->x = cs.begin()->x_ball;
-		cspr_ball->y = cs.begin()->y_ball;
-		cs.pop_front();
+		if (cs.size() > 0) {
+			cspr_player_1->x = cs.begin()->x_player_1;
+			cspr_player_1->y = cs.begin()->y_player_1;
+			cspr_player_2->x = cs.begin()->x_player_2;
+			cspr_player_2->y = cs.begin()->y_player_2;
+			cspr_ball->x = cs.begin()->x_ball;
+			cspr_ball->y = cs.begin()->y_ball;
+			cs.pop_front();
+		}
 	}
 	else {
 		status = 2;

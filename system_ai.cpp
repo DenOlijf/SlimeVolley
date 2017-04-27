@@ -72,7 +72,6 @@ float SystemAI::GetRandom()
 void SystemAI::UpdateKeys()
 {
 	int level = engine->GetContext()->GetLevel();
-	Stop();
 	// TODO: Implement game logic for different levels
 	if (level == 1)
 	{
