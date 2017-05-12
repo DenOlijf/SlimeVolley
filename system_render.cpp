@@ -76,8 +76,13 @@ void SystemRender::Update()
 	// TODO: Print the correct instructions at the bottom of the screen,
 	// depending on whether there's a regular game or a replay
 	int state = engine->GetContext()->GetState();
-	if (state == 0) {
+	bool replay = engine->GetContext()->IsReplay();
+	if (state == 0 && replay == false) {
 		Graphics::Instance().DrawString("Press P to pause, press ESC to quit without saving", 375, Y_MAX - (-30), c, Graphics::ALIGN_CENTER);
+	}
+	else if (replay == true) {
+		Graphics::Instance().DrawString("Speed down (left), up (right) or pause (p)", 375, Y_MAX - (-15), c, Graphics::ALIGN_CENTER);
+		Graphics::Instance().DrawString("next point (up), level (down) or quit (esc)", 375, Y_MAX - (-45), c, Graphics::ALIGN_CENTER);
 	}
 
 	// TODO: Print an appropriate message if state != 0, depending on state
@@ -98,7 +103,7 @@ void SystemRender::Update()
 			Graphics::Instance().DrawString("Press SPACE to play again, press ESC to go back to menu", 375, Y_MAX - 120, c, Graphics::ALIGN_CENTER);
 		}
 	}
-	else if (level == 1) {
+	else if (level == 1 && replay == false) {
 		if (state == PLAYER_LEFT_SCORES) {
 			Graphics::Instance().DrawString("You scored!", 375, Y_MAX - (-30), c, Graphics::ALIGN_CENTER);
 		}
@@ -114,7 +119,7 @@ void SystemRender::Update()
 			Graphics::Instance().DrawString("Press SPACE to play again, press ESC to go back to menu", 375, Y_MAX - 120, c, Graphics::ALIGN_CENTER);
 		}
 	}
-	else if (level == 2) {
+	else if (level == 2 && replay == false) {
 		if (state == PLAYER_LEFT_SCORES) {
 			Graphics::Instance().DrawString("You scored!", 375, Y_MAX - (-30), c, Graphics::ALIGN_CENTER);
 		}
@@ -130,7 +135,7 @@ void SystemRender::Update()
 			Graphics::Instance().DrawString("Press SPACE to play again, press ESC to go back to menu", 375, Y_MAX - 120, c, Graphics::ALIGN_CENTER);
 		}
 	}
-	else if (level == 3) {
+	else if (level == 3 && replay == false) {
 		if (state == PLAYER_LEFT_SCORES) {
 			Graphics::Instance().DrawString("You scored!", 375, Y_MAX - (-30), c, Graphics::ALIGN_CENTER);
 		}
