@@ -78,11 +78,11 @@ void SystemReplay::GoToNextFrame()
 		else {
 			status = 1;
 			if (cs.begin()->x_ball < 375 - BALL_X_OFFSET) {
-				engine->GetContext()->SetState(PLAYER_RIGHT_SCORES);
+				engine->GetContext()->SetState(PLAYER_RIGHT_SCORES1);
 				engine->GetContext()->IncreasePoints(2);
 			}
 			else {
-				engine->GetContext()->SetState(PLAYER_LEFT_SCORES);
+				engine->GetContext()->SetState(PLAYER_LEFT_SCORES1);
 				engine->GetContext()->IncreasePoints(1);
 			}
 		}

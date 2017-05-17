@@ -50,13 +50,17 @@ void SystemStateSingle::Update()
 				cspr_ball->y = cspr_ball->y_min;
 				if (engine->GetContext()->GetState() != LEVEL_WON && engine->GetContext()->GetState() != LEVEL_LOST) {
 					if (cspr_ball->x < 375 - BALL_X_OFFSET) {
-						engine->GetContext()->IncreasePoints(2);
-						engine->GetContext()->SetState(PLAYER_RIGHT_SCORES);
+                        srand(time(NULL));
+                        int r = rand() % 3;
+                        engine->GetContext()->IncreasePoints(2);
+                        engine->GetContext()->SetState(PLAYER_RIGHT_SCORES1 - r);
 						engine->GetContext()->UpdateScore(-100);
 					}
 					else {
+                        srand(time(NULL));
+                        int r = rand() % 3;
 						engine->GetContext()->IncreasePoints(1);
-						engine->GetContext()->SetState(PLAYER_LEFT_SCORES);
+						engine->GetContext()->SetState(PLAYER_LEFT_SCORES1-r);
 						engine->GetContext()->UpdateScore(200);
 					}
 				}
@@ -80,10 +84,10 @@ void SystemStateSingle::Update()
 					engine->GetContext()->SetState(LEVEL_LOST);
 				}
 				else {
-					if (engine->GetContext()->GetState() == PLAYER_LEFT_SCORES) {
+					if (engine->GetContext()->GetState() == PLAYER_LEFT_SCORES1 || engine->GetContext()->GetState() == PLAYER_LEFT_SCORES2 || engine->GetContext()->GetState() == PLAYER_LEFT_SCORES3) {
 						cspr_ball->x = SLIME_1_INIT_X;
 					}
-					else if (engine->GetContext()->GetState() == PLAYER_RIGHT_SCORES) {
+					else if (engine->GetContext()->GetState() == PLAYER_RIGHT_SCORES1 || engine->GetContext()->GetState() == PLAYER_RIGHT_SCORES2 || engine->GetContext()->GetState() == PLAYER_RIGHT_SCORES3) {
 						cspr_ball->x = SLIME_2_INIT_X;
 					}
 					else { //random beslissen wie bij volgende keren als eerste mag opslaan
