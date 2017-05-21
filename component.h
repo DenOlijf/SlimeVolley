@@ -1,3 +1,4 @@
+//Groep 27 component.h
 #pragma once
 
 class Component

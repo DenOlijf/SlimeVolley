@@ -1,3 +1,4 @@
+//Groep 27 allegro_lib.h
 #pragma once
 
 #include <allegro5/allegro.h>

@@ -1,3 +1,4 @@
+//Groep 27 context.cpp
 #include "context.h"
 
 int Context::GetScreenWidth()

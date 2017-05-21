@@ -1,3 +1,4 @@
+//Groep 27 component_player.h
 #pragma once
 
 #include "component.h"

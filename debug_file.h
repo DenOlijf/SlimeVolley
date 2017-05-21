@@ -1,3 +1,4 @@
+//Groep 27 debug_file.h
 #pragma once
 #ifdef _DEBUG
 	#define _CRTDBG_MAP_ALLOC

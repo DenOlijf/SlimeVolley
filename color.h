@@ -1,3 +1,4 @@
+//Groep 27 color.h
 #pragma once
 
 class Color

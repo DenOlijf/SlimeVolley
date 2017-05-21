@@ -1,3 +1,4 @@
+//Groep 27 entity.h
 #pragma once
 
 #include <map>
